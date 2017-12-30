@@ -1,17 +1,17 @@
-import { line, trunc } from 'lib/core';
 import { SCREEN_HEIGHT, SCREEN_WIDTH, rand, mainLoop, setPixel } from 'platform';
+import { line, trunc } from 'lib/core';
 
-const stars = new Array(5000);
-const NUMBER_OF_STARS = 3600;
+const stars = [];
+const NUMBER_OF_STARS = 6600;
 
 function initStar(star, initial) {
   // origin is in the center of the screen
   star[0] = rand(SCREEN_WIDTH * 6) - SCREEN_WIDTH * 3; // x
   star[1] = rand(SCREEN_HEIGHT * 6) - SCREEN_HEIGHT * 3; // y
+  star[3] = rand(205) + 50; // brightness
 
   if (initial) {
     star[2] = rand(14) + 1; // z
-    star[3] = rand(205) + 50; // brightness
     star[4] = rand(10) + 1; // speed
     star[5] = rand(800) === 1 ? 2 : 1; // size
     star[6] = 0
@@ -70,8 +70,8 @@ function draw() {
 }
 
 function start() {
-  for (var i = 0; i < stars.length; i++) {
-    stars[i] = new Array(5);
+  for (var i = 0; i < NUMBER_OF_STARS; i++) {
+    stars[i] = [];
     initStar(stars[i], true);
   }
 
