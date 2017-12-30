@@ -1,12 +1,16 @@
-var path = require('path');
+const path = require('path');
 
 module.exports = {
-  entry: "./platform/player/index.js",
+  mode: 'development',
+  entry: path.resolve('platform/player/index.js'),
   output: {
-      path: __dirname + '/platform/player/',
-      filename: "bundle.js"
+    path: path.resolve(__dirname, 'platform/player/'),
+    filename: 'bundle.js'
   },
   resolve: {
-    modules: [path.resolve(__dirname), 'node_modules']
+    modules: [
+      path.resolve(__dirname),
+      'node_modules'
+    ]
   }
 };
