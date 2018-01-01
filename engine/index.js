@@ -52,14 +52,14 @@ function positionCanvas() {
 
   if (screenWidth / screenHeight < SCREEN_RATIO) {
     canvasHeight = screenWidth / SCREEN_RATIO;
-    canvas.style.top = (screenHeight - canvasHeight) / 2;
+    canvas.style.top = `${(screenHeight - canvasHeight) / 2}px`;
   } else {
     canvasWidth = screenHeight * SCREEN_RATIO;
-    canvas.style.left = (screenWidth - canvasWidth) / 2;
+    canvas.style.left = `${(screenWidth - canvasWidth) / 2}px`;
   }
 
-  canvas.style.width = canvasWidth;
-  canvas.style.height = canvasHeight;
+  canvas.style.width = `${canvasWidth}px`;
+  canvas.style.height = `${canvasHeight}px`;
 }
 
 function clearCanvas() {
