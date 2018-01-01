@@ -30,7 +30,7 @@ function init() {
   document.getElementsByTagName('body')[0].appendChild(canvas);
   positionCanvas();
 
-  window.onresize = () => positionCanvas;
+  window.onresize = positionCanvas;
 
   const drawFrame = () => {
     window.requestAnimationFrame(drawFrame);
