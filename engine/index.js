@@ -80,7 +80,7 @@ function startDemo(start, draw) {
   currentDraw = draw;
 }
 
-init();
+document.addEventListener('DOMContentLoaded', init);
 
 function rand(max) {
   return Math.floor(Math.random() * (max + 1));
