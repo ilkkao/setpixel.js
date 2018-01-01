@@ -82,10 +82,18 @@ function startDemo(start, draw) {
 
 document.addEventListener('DOMContentLoaded', init);
 
+// API functions
+
+//
+// rand()
+//
 function rand(max) {
   return Math.floor(Math.random() * (max + 1));
 }
 
+//
+// setpixel()
+//
 function setPixel(x, y, red, green, blue) {
   if (x < 0 || x >= SCREEN_WIDTH || y < 0 || y >= SCREEN_HEIGHT) {
     return;
