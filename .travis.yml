@@ -8,6 +8,9 @@ services:
 before_install:
   - docker build -t ilkkao/setpixel.js .
 
+script:
+  - echo "Done."
+
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
     docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
