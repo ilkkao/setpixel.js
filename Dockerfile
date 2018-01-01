@@ -2,7 +2,7 @@ FROM node:9
 
 MAINTAINER Ilkka Oksanen <iao@iki.fi>
 
-COPY package.json yarn.lock /app/
+COPY package.json yarn.lock player/ /app/
 
 WORKDIR /app/
 

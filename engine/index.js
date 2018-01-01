@@ -1,4 +1,5 @@
 import { start as startPlayer, draw as drawPlayer } from 'player';
+import './index.css';
 
 const SCREEN_WIDTH = 640;
 const SCREEN_HEIGHT = 360;
