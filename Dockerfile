@@ -1,15 +1,15 @@
 FROM node:9
 
-MAINTAINER Ilkka Oksanen <iao@iki.fi>
+LABEL maintainer="Ilkka Oksanen <iao@iki.fi>"
 
-COPY package.json yarn.lock player/ /app/
+COPY package.json yarn.lock /app/
+COPY server.js /app/
 
 WORKDIR /app/
 
 RUN yarn
+RUN yarn run prod
 
-COPY server.js /app/
-
-WORKDIR /app/
+COPY dist/ /app/
 
 CMD node server.js
