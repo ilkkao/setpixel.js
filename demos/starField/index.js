@@ -1,5 +1,5 @@
-import { SCREEN_HEIGHT, SCREEN_WIDTH, rand, mainLoop, setPixel } from 'platform';
-import { line, trunc } from 'lib/core';
+import { rand, setPixel } from 'engine';
+import { SCREEN_HEIGHT, SCREEN_WIDTH, trunc } from 'lib/utils';
 
 const stars = [];
 const NUMBER_OF_STARS = 6600;
@@ -29,6 +29,13 @@ function drawStar(x, y, size, red, green, blue) {
     setPixel(x + 1, y, red, green, blue);
     setPixel(x, y + 1, red, green, blue);
     setPixel(x + 1, y, red, green, blue);
+  }
+}
+
+function start() {
+  for (var i = 0; i < NUMBER_OF_STARS; i++) {
+    stars[i] = [];
+    initStar(stars[i], true);
   }
 }
 
@@ -69,13 +76,4 @@ function draw() {
   }
 }
 
-function start() {
-  for (var i = 0; i < NUMBER_OF_STARS; i++) {
-    stars[i] = [];
-    initStar(stars[i], true);
-  }
-
-  mainLoop(draw);
-}
-
-export default start;
+export { start, draw };

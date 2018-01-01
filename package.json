@@ -3,10 +3,15 @@
   "version": "0.0.1",
   "main": "server.js",
   "license": "MIT",
+  "scripts": {
+    "dev": "webpack --mode development -w",
+    "prod": "webpack --mode production"
+  },
   "dependencies": {
     "eslint": "^4.12.1",
     "koa": "^2.4.1",
     "koa-send": "^4.1.1",
+    "mousetrap": "^1.6.1",
     "webpack": "4.0.0-alpha.2"
   },
   "devDependencies": {

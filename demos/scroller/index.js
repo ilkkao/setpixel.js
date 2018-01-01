@@ -1,22 +1,22 @@
-import { SCREEN_HEIGHT, SCREEN_WIDTH, rand, mainLoop, setPixel } from 'platform';
-import { trunc } from 'lib/core';
+import { rand, setPixel } from 'engine';
+import { SCREEN_HEIGHT, SCREEN_WIDTH, trunc } from 'lib/utils';
 
 const BLOCK_WIDTH = 10;
 const BLOCK_HEIGHT = 10;
-const SCREEN_WIDTH_IN_BLOCKS = SCREEN_WIDTH / BLOCK_WIDTH;
-const SCREEN_HEIGHT_IN_BLOCKS = SCREEN_HEIGHT / BLOCK_HEIGHT;
+const SCREEN_WIDTH_IN_BLOCKS = SCREEN_WIDTH / (BLOCK_WIDTH - 1);
+const SCREEN_HEIGHT_IN_BLOCKS = SCREEN_HEIGHT / (BLOCK_HEIGHT - 1);
 const WORLD_WIDTH_IN_BLOCKS = SCREEN_WIDTH_IN_BLOCKS * 10;
 const WORLD_HEIGHT_IN_BLOCKS = SCREEN_HEIGHT_IN_BLOCKS;
 
 const block = [
   1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
   1, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+  1, 0, 1, 1, 1, 1, 1, 1, 0, 1,
   1, 0, 1, 0, 0, 0, 0, 1, 0, 1,
-  1, 0, 0, 1, 0, 0, 1, 0, 0, 1,
-  1, 0, 0, 0, 1, 1, 0, 0, 0, 1,
-  1, 0, 0, 0, 1, 1, 0, 0, 0, 1,
-  1, 0, 0, 1, 0, 0, 1, 0, 0, 1,
+  1, 0, 1, 0, 1, 1, 0, 1, 0, 1,
+  1, 0, 1, 0, 1, 1, 0, 1, 0, 1,
   1, 0, 1, 0, 0, 0, 0, 1, 0, 1,
+  1, 0, 1, 1, 1, 1, 1, 1, 0, 1,
   1, 0, 0, 0, 0, 0, 0, 0, 0, 1,
   1, 1, 1, 1, 1, 1, 1, 1, 1, 1
 ];
@@ -31,7 +31,7 @@ function drawScreen(offset) {
 
   for (let y = 0; y < SCREEN_HEIGHT_IN_BLOCKS; y++) {
     for (let x = 0; x < SCREEN_WIDTH_IN_BLOCKS + 2; x++) {
-      drawBlock(x * BLOCK_WIDTH - remainder - BLOCK_WIDTH, y * BLOCK_HEIGHT, world[y * WORLD_WIDTH_IN_BLOCKS + x + offsetInBlocks]);
+      drawBlock(x * (BLOCK_WIDTH - 1) - remainder - BLOCK_WIDTH, y * (BLOCK_HEIGHT - 1), world[y * WORLD_WIDTH_IN_BLOCKS + x + offsetInBlocks]);
     }
   }
 }
@@ -41,9 +41,17 @@ function drawBlock(x, y, type) {
     for (let innnerX = 0; innnerX < BLOCK_WIDTH; innnerX++) {
       if (type === 1) {
         setPixel(x + innnerX, y + innerY, 0, block[innerY * BLOCK_WIDTH + innnerX] * 254, 0);
-      } else {
+      } else if (innerY !== 0 && innnerX !== 0 && y !== 0) {
         setPixel(x + innnerX, y + innerY, 0, 0, 0);
       }
+    }
+  }
+}
+
+function start() {
+  for (let y = 0; y < WORLD_HEIGHT_IN_BLOCKS; y++) {
+    for (let x = 0; x < WORLD_WIDTH_IN_BLOCKS * 10; x++) {
+      world[y * WORLD_WIDTH_IN_BLOCKS + x] = rand(2);
     }
   }
 }
@@ -62,15 +70,4 @@ function draw() {
   }
 }
 
-function start() {
-  for (let y = 0; y < WORLD_HEIGHT_IN_BLOCKS; y++) {
-    for (let x = 0; x < WORLD_WIDTH_IN_BLOCKS * 10; x++) {
-      world[y * WORLD_WIDTH_IN_BLOCKS + x] = rand(1);
-    }
-  }
-
-  mainLoop(draw);
-}
-
-export default start;
-
+export { start, draw };
