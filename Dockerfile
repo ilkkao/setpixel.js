@@ -11,7 +11,6 @@ COPY webpack.config.js /app/
 COPY demos /app/demos
 COPY engine /app/engine
 COPY lib /app/lib/
-COPY player/ /app/player
 RUN yarn run prod
 
 COPY server.js /app/

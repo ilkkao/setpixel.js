@@ -1,5 +1,4 @@
-import { start as startPlayer, draw as drawPlayer } from 'player';
-import './index.css';
+import keycode from 'keycode';
 
 const SCREEN_WIDTH = 640;
 const SCREEN_HEIGHT = 360;
@@ -10,6 +9,7 @@ let ctx = null;
 let imageData = null;
 let imageDataArray = null;
 let currentDraw = () => { };
+const keyBuffer = [];
 
 function init() {
   canvas = document.createElement('canvas');
@@ -32,15 +32,32 @@ function init() {
 
   window.onresize = positionCanvas;
 
+  document.addEventListener('keydown', (e) => {
+    const code = keycode(e);
+
+    if (code === 'f') {
+      const body = document.getElementsByTagName('body')[0];
+      body.requestFullscreen && body.requestFullscreen();
+    } else if (code === 'q') {
+      startDemo('player');
+    } else {
+      keyBuffer.push(keycode(e));
+    }
+  });
+
   const drawFrame = () => {
     window.requestAnimationFrame(drawFrame);
     ctx.putImageData(imageData, 0, 0);
-    currentDraw();
+    currentDraw(keyBuffer);
+
+    if (keyBuffer.length !== 0) {
+      keyBuffer.splice(0, keyBuffer.length);
+    }
   };
 
   drawFrame();
 
-  startDemo(startPlayer, drawPlayer);
+  startDemo('player');
 }
 
 function positionCanvas() {
@@ -73,11 +90,17 @@ function clearCanvas() {
   ctx.putImageData(imageData, 0, 0);
 }
 
-function startDemo(start, draw) {
-  clearCanvas();
-  start();
+function listDemos() {
+  return require.context('../demos', true, /index\.js$/).keys().map(name => name.split('/')[1]);
+}
 
-  currentDraw = draw;
+function startDemo(name) {
+  clearCanvas();
+
+  const demo = require(`../demos/${name}`);
+
+  demo.start();
+  currentDraw = demo.draw;
 }
 
 document.addEventListener('DOMContentLoaded', init);
@@ -106,4 +129,4 @@ function setPixel(x, y, red, green, blue) {
   imageDataArray[index + 2] = blue << 0;
 }
 
-export { SCREEN_WIDTH, SCREEN_HEIGHT, rand, setPixel, startDemo };
+export { rand, setPixel, listDemos, startDemo };
