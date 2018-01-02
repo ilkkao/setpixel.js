@@ -16,7 +16,6 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Setpixel.js',
       template: 'engine/index.html',
       inject: 'body'
     }),
