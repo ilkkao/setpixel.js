@@ -1,10 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ManifestPlugin = require('webpack-manifest-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const nodeEnv = process.env.NODE_ENV;
-const isProduction = nodeEnv === 'production';
+const isProduction = process.env.NODE_ENV === 'production';
 
 console.log(`Production mode: ${isProduction}`);
 
@@ -15,25 +12,13 @@ module.exports = {
     filename: isProduction ? 'bundle-[chunkhash].js' : 'bundle.js'
   },
   resolve: {
-    modules: [
-      path.resolve(__dirname),
-      'node_modules'
-    ]
-  },
-  module: {
-    rules: [{
-      test: /\.css$/,
-      use: ExtractTextPlugin.extract({
-        fallback: 'style-loader',
-        use: 'css-loader'
-      })
-    }]
+    modules: [ path.resolve(__dirname), 'node_modules' ]
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Setpixel.js'
+      title: 'Setpixel.js',
+      template: 'engine/index.html',
+      inject: 'body'
     }),
-    new ExtractTextPlugin('styles-[chunkhash].css'),
-    new ManifestPlugin()
   ]
 };

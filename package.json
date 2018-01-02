@@ -4,20 +4,16 @@
   "main": "server.js",
   "license": "MIT",
   "scripts": {
-    "dev": "webpack --mode development -w",
+    "dev": "webpack -w",
     "prod": "NODE_ENV=production webpack"
   },
   "dependencies": {
-    "css-loader": "^0.28.7",
     "eslint": "^4.12.1",
-    "extract-text-webpack-plugin": "^3.0.2",
     "html-webpack-plugin": "^2.30.1",
+    "keycode": "^2.1.9",
     "koa": "^2.4.1",
     "koa-send": "^4.1.1",
-    "mousetrap": "^1.6.1",
-    "style-loader": "^0.19.1",
-    "webpack": "^3.10.0",
-    "webpack-manifest-plugin": "^1.3.2"
+    "webpack": "^3.10.0"
   },
   "devDependencies": {}
 }
