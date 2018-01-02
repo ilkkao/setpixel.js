@@ -91,7 +91,9 @@ function clearCanvas() {
 }
 
 function listDemos() {
-  return require.context('../demos', true, /index\.js$/).keys().map(name => name.split('/')[1]);
+  const demos = require.context('../demos', true, /index\.js$/).keys().map(name => name.split('/')[1]);
+
+  return demos.filter(name => name !== 'player');
 }
 
 function startDemo(name) {
