@@ -14,9 +14,9 @@ function initStar(star, initial) {
     star[2] = rand(14) + 1; // z
     star[4] = rand(10) + 1; // speed
     star[5] = rand(800) === 1 ? 2 : 1; // size
-    star[6] = 0
-    star[7] = 0
-    star[8] = 0
+    star[6] = 0;
+    star[7] = 0;
+    star[8] = 0;
   } else {
     star[2] = 15; // z
   }

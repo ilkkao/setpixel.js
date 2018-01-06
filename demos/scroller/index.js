@@ -27,7 +27,7 @@ let direction = 1;
 
 function drawScreen(offset) {
   const remainder = offset % BLOCK_WIDTH;
-  const offsetInBlocks = trunc(offset / BLOCK_WIDTH)
+  const offsetInBlocks = trunc(offset / BLOCK_WIDTH);
 
   for (let y = 0; y < SCREEN_HEIGHT_IN_BLOCKS; y++) {
     for (let x = 0; x < SCREEN_WIDTH_IN_BLOCKS + 2; x++) {

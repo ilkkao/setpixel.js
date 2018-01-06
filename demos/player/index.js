@@ -2,7 +2,7 @@ import { startDemo, listDemos } from 'engine';
 import { print } from 'lib/fonts';
 
 const demos = listDemos();
-const selected = 0;
+//const selected = 0;
 
 function start() {
   print(240, 10, 3, 'setpixel.js');
