@@ -1,19 +1,23 @@
 import { rand, setPixel } from 'engine';
 import { SCREEN_HEIGHT, SCREEN_WIDTH, trunc } from 'lib/utils';
 
+const fastSetPixel = setPixel;
+const fastRand = rand;
+const fastTrunc = trunc;
+
 const stars = [];
 const NUMBER_OF_STARS = 6600;
 
 function initStar(star, initial) {
   // origin is in the center of the screen
-  star[0] = rand(SCREEN_WIDTH * 6) - SCREEN_WIDTH * 3; // x
-  star[1] = rand(SCREEN_HEIGHT * 6) - SCREEN_HEIGHT * 3; // y
-  star[3] = rand(205) + 50; // brightness
+  star[0] = fastRand(SCREEN_WIDTH * 6) - SCREEN_WIDTH * 3; // x
+  star[1] = fastRand(SCREEN_HEIGHT * 6) - SCREEN_HEIGHT * 3; // y
+  star[3] = fastRand(205) + 50; // brightness
 
   if (initial) {
-    star[2] = rand(14) + 1; // z
-    star[4] = rand(10) + 1; // speed
-    star[5] = rand(800) === 1 ? 2 : 1; // size
+    star[2] = fastRand(14) + 1; // z
+    star[4] = fastRand(10) + 1; // speed
+    star[5] = fastRand(800) === 1 ? 2 : 1; // size
     star[6] = 0;
     star[7] = 0;
     star[8] = 0;
@@ -23,12 +27,12 @@ function initStar(star, initial) {
 }
 
 function drawStar(x, y, size, red, green, blue) {
-  setPixel(x, y, red, green, blue);
+  fastSetPixel(x, y, red, green, blue);
 
   if (size == 2) {
-    setPixel(x + 1, y, red, green, blue);
-    setPixel(x, y + 1, red, green, blue);
-    setPixel(x + 1, y, red, green, blue);
+    fastSetPixel(x + 1, y, red, green, blue);
+    fastSetPixel(x, y + 1, red, green, blue);
+    fastSetPixel(x + 1, y, red, green, blue);
   }
 }
 
@@ -49,7 +53,7 @@ function draw() {
     if (stars[i][2] < 0 || x > SCREEN_WIDTH || x < 0 || y > SCREEN_HEIGHT || y < 0) {
       initStar(stars[i], false);
     } else {
-      let size = trunc(stars[i][5] / (stars[i][2] / 3));
+      let size = fastTrunc(stars[i][5] / (stars[i][2] / 3));
 
       if (size < 1) {
         size = 1;
@@ -61,7 +65,7 @@ function draw() {
 
       stars[i][2] = stars[i][2] - stars[i][4] / 120;
 
-      let brightness = trunc(stars[i][3] / (stars[i][2] / 3));
+      let brightness = fastTrunc(stars[i][3] / (stars[i][2] / 3));
 
       if (brightness > 255) {
         brightness = 255;

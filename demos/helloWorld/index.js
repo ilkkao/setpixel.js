@@ -1,5 +1,6 @@
 import { setPixel } from 'engine';
 
+const fastSetPixel = setPixel;
 let currentColor = 0;
 
 function start() {
@@ -7,8 +8,8 @@ function start() {
 
 function draw() {
   for (let i = 0; i < 360; i++) {
-    setPixel(i + 130, i, currentColor, 255, currentColor);
-    setPixel(i + 130, 360 - i, 255, currentColor, currentColor);
+    fastSetPixel(i + 130, i, currentColor, 255, currentColor);
+    fastSetPixel(i + 130, 360 - i, 255, currentColor, currentColor);
   }
 
   currentColor++;
