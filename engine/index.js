@@ -9,8 +9,7 @@ let ctx = null;
 let imageData = null;
 let imageDataArray = null;
 let currentDraw = () => { };
-let previousDrawStartTs = 0;
-
+let previousDrawStartTs;
 let CPULoadAverage;
 let tick;
 
@@ -67,6 +66,8 @@ function init() {
 
   const drawFrame = (startTs) => {
     window.requestAnimationFrame(drawFrame);
+    tick++;
+
     ctx.putImageData(imageData, 0, 0);
     currentDraw(keyBuffer);
 
@@ -97,9 +98,9 @@ function init() {
     previousDrawStartTs = startTs;
   };
 
-  window.requestAnimationFrame(drawFrame);
-
   startDemo('player');
+
+  window.requestAnimationFrame(drawFrame);
 }
 
 function positionCanvas() {
@@ -150,6 +151,7 @@ function startDemo(name) {
 
   CPULoadAverage = 0;
   tick = 0;
+  previousDrawStartTs = 0;
 }
 
 function toggleInfoBar() {
@@ -159,7 +161,6 @@ function toggleInfoBar() {
 }
 
 function updateCPULoadAverage(load) {
-  tick += 1;
   CPULoadAverage = (CPULoadAverage * (tick - 1) + load) / tick;
 }
 
