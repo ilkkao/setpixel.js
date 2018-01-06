@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
-console.log(`Production mode: ${isProduction}`);
+console.log(`Production mode: ${isProduction}`); // eslint-disable-line no-console
 
 module.exports = {
   entry: 'engine',
