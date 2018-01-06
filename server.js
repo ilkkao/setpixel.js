@@ -1,14 +1,28 @@
+'use strict';
+
 const path = require('path');
 const fs = require('fs');
 const Koa = require('koa');
+const compress = require('koa-compress');
 const send = require('koa-send');
 
 const PORT = 3000;
 
 const app = new Koa();
 
-app.use(async (ctx) => {
-  await send(ctx, ctx.path, { index: 'index.html', root: path.resolve(__dirname, 'dist') });
+app.use(compress());
+
+app.use(async ctx => {
+  await send(ctx, ctx.path, {
+    index: 'index.html',
+    root: path.resolve(__dirname, 'dist'),
+    setHeaders: (res, path) => {
+      res.setHeader('Cache-Control',
+        path.endsWith('index.html') || path.endsWith('bundle.js')
+          ? 'no-cache, no-store, must-revalidate'
+          : 'public, max-age=31536000');
+    }
+  });
 });
 
 app.listen(PORT);
