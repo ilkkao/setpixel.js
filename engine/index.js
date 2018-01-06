@@ -86,11 +86,11 @@ function init() {
 
         avgLoadNumberElem.innerText = roundedAvgLoad;
         avgLoadBarElem.style.width = `${roundedAvgLoad}%`;
-        avgLoadBarElem.style.backgroundColor = roundedAvgLoad === 100 ? 'red' : 'white';
+        avgLoadBarElem.style.backgroundColor = roundedAvgLoad === 100 ? 'red' : '#ccc';
 
         currentLoadNumberElem.innerText = roundedCurrentLoad;
         currentLoadBarElem.style.width = `${roundedCurrentLoad}%`;
-        currentLoadBarElem.style.backgroundColor = roundedCurrentLoad === 100 ? 'red' : 'white';
+        currentLoadBarElem.style.backgroundColor = roundedCurrentLoad === 100 ? 'red' : '#ccc';
       }
     }
 
