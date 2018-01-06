@@ -30,4 +30,8 @@ function draw(keys) {
   }
 }
 
-export { start, draw };
+const meta = {
+  author: 'Ilkka Oksanen <iao@iki.fi>'
+};
+
+export { start, draw, meta };
