@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "webpack -w",
-    "prod": "NODE_ENV=production webpack"
+    "prod": "NODE_ENV=production webpack",
+    "lint": "eslint demos/**/*.js engine/**/*.js lib/**/*.js *.js"
   },
   "dependencies": {
     "eslint": "^4.12.1",
