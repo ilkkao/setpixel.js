@@ -9,6 +9,20 @@ let ctx = null;
 let imageData = null;
 let imageDataArray = null;
 let currentDraw = () => { };
+let previousDrawStartTs = 0;
+
+let CPULoadAverage;
+let tick;
+
+const infoBarElem = document.getElementById('info-bar');
+const authorElem = document.getElementById('author-value');
+const avgLoadBarElem = document.getElementById('avg-bar');
+const avgLoadNumberElem = document.getElementById('avg-value');
+const currentLoadBarElem = document.getElementById('current-bar');
+const currentLoadNumberElem = document.getElementById('current-value');
+
+let infoBarVisible = false;
+
 const keyBuffer = [];
 
 function init() {
@@ -32,20 +46,26 @@ function init() {
 
   window.onresize = positionCanvas;
 
-  document.addEventListener('keydown', (e) => {
-    const code = keycode(e);
+  const body = document.getElementsByTagName('body')[0];
 
-    if (code === 'f') {
-      const body = document.getElementsByTagName('body')[0];
-      body.requestFullscreen && body.requestFullscreen();
-    } else if (code === 'q') {
-      startDemo('player');
-    } else {
-      keyBuffer.push(keycode(e));
+  document.addEventListener('keydown', (e) => {
+    switch (keycode(e)) {
+      case 'f':
+        body.requestFullscreen && body.requestFullscreen();
+        break;
+      case 'q':
+        startDemo('player');
+        break;
+      case 'i':
+        toggleInfoBar();
+        break;
+      default:
+        keyBuffer.push(keycode(e));
+        break;
     }
   });
 
-  const drawFrame = () => {
+  const drawFrame = (startTs) => {
     window.requestAnimationFrame(drawFrame);
     ctx.putImageData(imageData, 0, 0);
     currentDraw(keyBuffer);
@@ -53,9 +73,31 @@ function init() {
     if (keyBuffer.length !== 0) {
       keyBuffer.splice(0, keyBuffer.length);
     }
+
+    const endTs = performance.now();
+
+    if (previousDrawStartTs !== 0) {
+      const currentLoad = (endTs - startTs) / (startTs - previousDrawStartTs);
+      updateCPULoadAverage(currentLoad);
+
+      if (infoBarVisible && tick % 30 === 0) {
+        const roundedAvgLoad = Math.min(Math.round(CPULoadAverage * 100), 100);
+        const roundedCurrentLoad = Math.min(Math.round(currentLoad * 100), 100);
+
+        avgLoadNumberElem.innerText = roundedAvgLoad;
+        avgLoadBarElem.style.width = `${roundedAvgLoad}%`;
+        avgLoadBarElem.style.backgroundColor = roundedAvgLoad === 100 ? 'red' : 'white';
+
+        currentLoadNumberElem.innerText = roundedCurrentLoad;
+        currentLoadBarElem.style.width = `${roundedCurrentLoad}%`;
+        currentLoadBarElem.style.backgroundColor = roundedCurrentLoad === 100 ? 'red' : 'white';
+      }
+    }
+
+    previousDrawStartTs = startTs;
   };
 
-  drawFrame();
+  window.requestAnimationFrame(drawFrame);
 
   startDemo('player');
 }
@@ -103,6 +145,22 @@ function startDemo(name) {
 
   demo.start();
   currentDraw = demo.draw;
+
+  authorElem.innerText = demo.meta.author;
+
+  CPULoadAverage = 0;
+  tick = 0;
+}
+
+function toggleInfoBar() {
+  infoBarVisible = !infoBarVisible;
+
+  infoBarElem.style.display = infoBarVisible ? 'flex' : 'none';
+}
+
+function updateCPULoadAverage(load) {
+  tick += 1;
+  CPULoadAverage = (CPULoadAverage * (tick - 1) + load) / tick;
 }
 
 document.addEventListener('DOMContentLoaded', init);
