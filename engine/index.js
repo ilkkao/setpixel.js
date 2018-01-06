@@ -182,11 +182,11 @@ function setPixel(x, y, red, green, blue) {
     return;
   }
 
-  const index = ((y << 0) * SCREEN_WIDTH + (x << 0)) * 4;
+  const index = (Math.floor(y) * SCREEN_WIDTH + Math.floor(x)) * 4;
 
-  imageDataArray[index] = red << 0;
-  imageDataArray[index + 1] = green << 0;
-  imageDataArray[index + 2] = blue << 0;
+  imageDataArray[index] = Math.floor(red);
+  imageDataArray[index + 1] = Math.floor(green);
+  imageDataArray[index + 2] = Math.floor(blue);
 }
 
 export { rand, setPixel, listDemos, startDemo };
