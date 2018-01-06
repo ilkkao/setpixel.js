@@ -8,6 +8,9 @@ const SCREEN_HEIGHT_IN_BLOCKS = SCREEN_HEIGHT / (BLOCK_HEIGHT - 1);
 const WORLD_WIDTH_IN_BLOCKS = SCREEN_WIDTH_IN_BLOCKS * 10;
 const WORLD_HEIGHT_IN_BLOCKS = SCREEN_HEIGHT_IN_BLOCKS;
 
+const fastSetPixel = setPixel;
+const fastTrunc = trunc;
+
 const block = [
   1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
   1, 0, 0, 0, 0, 0, 0, 0, 0, 1,
@@ -27,7 +30,7 @@ let direction = 1;
 
 function drawScreen(offset) {
   const remainder = offset % BLOCK_WIDTH;
-  const offsetInBlocks = trunc(offset / BLOCK_WIDTH);
+  const offsetInBlocks = fastTrunc(offset / BLOCK_WIDTH);
 
   for (let y = 0; y < SCREEN_HEIGHT_IN_BLOCKS; y++) {
     for (let x = 0; x < SCREEN_WIDTH_IN_BLOCKS + 2; x++) {
@@ -40,9 +43,9 @@ function drawBlock(x, y, type) {
   for (let innerY = 0; innerY < BLOCK_HEIGHT; innerY++) {
     for (let innnerX = 0; innnerX < BLOCK_WIDTH; innnerX++) {
       if (type === 1) {
-        setPixel(x + innnerX, y + innerY, 0, block[innerY * BLOCK_WIDTH + innnerX] * 254, 0);
+        fastSetPixel(x + innnerX, y + innerY, 0, block[innerY * BLOCK_WIDTH + innnerX] * 254, 0);
       } else if (innerY !== 0 && innnerX !== 0 && y !== 0) {
-        setPixel(x + innnerX, y + innerY, 0, 0, 0);
+        fastSetPixel(x + innnerX, y + innerY, 0, 0, 0);
       }
     }
   }
