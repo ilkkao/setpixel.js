@@ -1,7 +1,6 @@
 'use strict';
 
 const path = require('path');
-const fs = require('fs');
 const Koa = require('koa');
 const compress = require('koa-compress');
 const send = require('koa-send');
@@ -27,4 +26,4 @@ app.use(async ctx => {
 
 app.listen(PORT);
 
-console.log(`Server started: http://localhost:${PORT}/`);
+console.log(`Server started: http://localhost:${PORT}/`); // eslint-disable-line no-console
