@@ -67,9 +67,9 @@ function draw() {
   if (xCamera === -1) {
     direction = 1;
     xCamera = 1;
-  } else if (xCamera === 600) { // fix me
+  } else if (xCamera === 600) {
     direction = -1;
-    xCamera = 599;
+    xCamera = 598;
   }
 }
 
