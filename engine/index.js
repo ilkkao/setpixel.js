@@ -1,4 +1,4 @@
-import keycode from 'keycode';
+import keycode from './keycode';
 
 const SCREEN_WIDTH = 640;
 const SCREEN_HEIGHT = 360;
