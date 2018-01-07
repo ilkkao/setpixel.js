@@ -1,27 +1,26 @@
 import { rand, setPixel } from 'engine';
 import { SCREEN_HEIGHT, SCREEN_WIDTH, trunc } from 'lib/utils';
 
-const BLOCK_WIDTH = 10;
-const BLOCK_HEIGHT = 10;
-const SCREEN_WIDTH_IN_BLOCKS = SCREEN_WIDTH / (BLOCK_WIDTH - 1);
-const SCREEN_HEIGHT_IN_BLOCKS = SCREEN_HEIGHT / (BLOCK_HEIGHT - 1);
-const WORLD_WIDTH_IN_BLOCKS = SCREEN_WIDTH_IN_BLOCKS * 10;
-const WORLD_HEIGHT_IN_BLOCKS = SCREEN_HEIGHT_IN_BLOCKS;
-
 const fastSetPixel = setPixel;
 const fastTrunc = trunc;
 
+const BLOCK_WIDTH = 9;
+const BLOCK_HEIGHT = 9;
+const SCREEN_WIDTH_IN_BLOCKS = fastTrunc(SCREEN_WIDTH / (BLOCK_WIDTH - 1));
+const SCREEN_HEIGHT_IN_BLOCKS = fastTrunc(SCREEN_HEIGHT / (BLOCK_HEIGHT - 1));
+const WORLD_WIDTH_IN_BLOCKS = SCREEN_WIDTH_IN_BLOCKS * 10;
+const WORLD_HEIGHT_IN_BLOCKS = SCREEN_HEIGHT_IN_BLOCKS;
+
 const block = [
-  1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-  1, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-  1, 0, 1, 1, 1, 1, 1, 1, 0, 1,
-  1, 0, 1, 0, 0, 0, 0, 1, 0, 1,
-  1, 0, 1, 0, 1, 1, 0, 1, 0, 1,
-  1, 0, 1, 0, 1, 1, 0, 1, 0, 1,
-  1, 0, 1, 0, 0, 0, 0, 1, 0, 1,
-  1, 0, 1, 1, 1, 1, 1, 1, 0, 1,
-  1, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-  1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+  1, 1, 1, 1, 1, 1, 1, 1, 1,
+  1, 0, 0, 0, 0, 0, 0, 0, 0,
+  1, 0, 1, 1, 1, 1, 1, 1, 0,
+  1, 0, 1, 0, 0, 0, 0, 1, 0,
+  1, 0, 1, 0, 1, 1, 0, 1, 0,
+  1, 0, 1, 0, 1, 1, 0, 1, 0,
+  1, 0, 1, 0, 0, 0, 0, 1, 0,
+  1, 0, 1, 1, 1, 1, 1, 1, 0,
+  1, 0, 0, 0, 0, 0, 0, 0, 0,
 ];
 
 const world = [];
@@ -33,19 +32,33 @@ function drawScreen(offset) {
   const offsetInBlocks = fastTrunc(offset / BLOCK_WIDTH);
 
   for (let y = 0; y < SCREEN_HEIGHT_IN_BLOCKS; y++) {
+    let prevBlock = 0;
+
     for (let x = 0; x < SCREEN_WIDTH_IN_BLOCKS + 2; x++) {
-      drawBlock(x * (BLOCK_WIDTH - 1) - remainder - BLOCK_WIDTH, y * (BLOCK_HEIGHT - 1), world[y * WORLD_WIDTH_IN_BLOCKS + x + offsetInBlocks]);
+      const index = y * WORLD_WIDTH_IN_BLOCKS + x + offsetInBlocks;
+
+      const xBlock = x * BLOCK_WIDTH - remainder - BLOCK_WIDTH;
+      const yBlock = y * BLOCK_HEIGHT;
+      const type = world[index];
+      const aboveBlock = y === 0 ? 0 : world[index - WORLD_WIDTH_IN_BLOCKS];
+      const belowBlock = y === 0 ? 0 : world[index - WORLD_WIDTH_IN_BLOCKS - 1];
+
+      drawTile(xBlock, yBlock, type, prevBlock, aboveBlock, belowBlock);
+
+      prevBlock = type;
     }
   }
 }
 
-function drawBlock(x, y, type) {
+function drawTile(x, y, type, prev, above, under) {
   for (let innerY = 0; innerY < BLOCK_HEIGHT; innerY++) {
-    for (let innnerX = 0; innnerX < BLOCK_WIDTH; innnerX++) {
+    for (let innerX = 0; innerX < BLOCK_WIDTH; innerX++) {
       if (type === 1) {
-        fastSetPixel(x + innnerX, y + innerY, 0, block[innerY * BLOCK_WIDTH + innnerX] * 254, 0);
-      } else if (innerY !== 0 && innnerX !== 0 && y !== 0) {
-        fastSetPixel(x + innnerX, y + innerY, 0, 0, 0);
+        fastSetPixel(x + innerX, y + innerY, 0, block[innerY * BLOCK_WIDTH + innerX] * 255, 0);
+      } else if ((above === 1 && innerY === 0) || (prev === 1 && innerX === 0) || (under === 1 && innerX === 0 && innerY === 0)) {
+        fastSetPixel(x + innerX, y + innerY, 0, 255, 0);
+      } else {
+        fastSetPixel(x + innerX, y + innerY, 0, 0, 0);
       }
     }
   }
