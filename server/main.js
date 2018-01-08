@@ -17,6 +17,7 @@ app.use(async ctx => {
     root: path.resolve(__dirname, 'dist'),
     setHeaders: (res, path) => {
       res.setHeader('Cache-Control',
+        // index.html or or non-fingerprinted bundle (dev-version) is never cached
         path.endsWith('index.html') || path.endsWith('bundle.js')
           ? 'no-cache, no-store, must-revalidate'
           : 'public, max-age=31536000');
