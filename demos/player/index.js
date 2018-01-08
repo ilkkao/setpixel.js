@@ -1,10 +1,13 @@
-import { startDemo, listDemos } from 'engine';
+import { startDemo, listDemos } from 'engine/internal';
 import { print } from 'lib/fonts';
 
-const demos = listDemos();
-//const selected = 0;
+let demos;
+let selected;
 
 function start() {
+  demos = listDemos();
+  selected = 0;
+
   print(240, 10, 3, 'setpixel.js');
 
   print(10, 40, 2, 'full-screen [off]');
