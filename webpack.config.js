@@ -1,5 +1,5 @@
 const path = require('path');
-var webpack = require('webpack');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -13,7 +13,7 @@ module.exports = {
     filename: isProduction ? 'bundle-[chunkhash].js' : 'bundle.js'
   },
   resolve: {
-    modules: [ path.resolve(__dirname), 'node_modules' ]
+    modules: [ path.resolve(__dirname) ]
   },
   stats: {
     maxModules: Infinity,
