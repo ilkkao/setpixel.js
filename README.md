@@ -4,3 +4,11 @@
 
 WIP
 
+## Getting started
+
+```
+$ yarn install
+$ node server/main.js
+
+Go to: http://localhost:3000/
+```
