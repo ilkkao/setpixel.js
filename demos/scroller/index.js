@@ -1,13 +1,10 @@
 import { rand, setPixel } from 'engine';
 import { SCREEN_HEIGHT, SCREEN_WIDTH, trunc } from 'lib/utils';
 
-const fastSetPixel = setPixel;
-const fastTrunc = trunc;
-
 const BLOCK_WIDTH = 9;
 const BLOCK_HEIGHT = 9;
-const SCREEN_WIDTH_IN_BLOCKS = fastTrunc(SCREEN_WIDTH / (BLOCK_WIDTH - 1));
-const SCREEN_HEIGHT_IN_BLOCKS = fastTrunc(SCREEN_HEIGHT / (BLOCK_HEIGHT - 1));
+const SCREEN_WIDTH_IN_BLOCKS = trunc(SCREEN_WIDTH / (BLOCK_WIDTH - 1));
+const SCREEN_HEIGHT_IN_BLOCKS = trunc(SCREEN_HEIGHT / (BLOCK_HEIGHT - 1));
 const WORLD_WIDTH_IN_BLOCKS = SCREEN_WIDTH_IN_BLOCKS * 10;
 const WORLD_HEIGHT_IN_BLOCKS = SCREEN_HEIGHT_IN_BLOCKS;
 
@@ -29,7 +26,7 @@ let direction = 1;
 
 function drawScreen(offset) {
   const remainder = offset % BLOCK_WIDTH;
-  const offsetInBlocks = fastTrunc(offset / BLOCK_WIDTH);
+  const offsetInBlocks = trunc(offset / BLOCK_WIDTH);
 
   for (let y = 0; y < SCREEN_HEIGHT_IN_BLOCKS; y++) {
     let prevBlock = 0;
@@ -54,11 +51,11 @@ function drawTile(x, y, type, prev, above, under) {
   for (let innerY = 0; innerY < BLOCK_HEIGHT; innerY++) {
     for (let innerX = 0; innerX < BLOCK_WIDTH; innerX++) {
       if (type === 1) {
-        fastSetPixel(x + innerX, y + innerY, 0, block[innerY * BLOCK_WIDTH + innerX] * 255, 0);
+        setPixel(x + innerX, y + innerY, 0, block[innerY * BLOCK_WIDTH + innerX] * 255, 0);
       } else if ((above === 1 && innerY === 0) || (prev === 1 && innerX === 0) || (under === 1 && innerX === 0 && innerY === 0)) {
-        fastSetPixel(x + innerX, y + innerY, 0, 255, 0);
+        setPixel(x + innerX, y + innerY, 0, 255, 0);
       } else {
-        fastSetPixel(x + innerX, y + innerY, 0, 0, 0);
+        setPixel(x + innerX, y + innerY, 0, 0, 0);
       }
     }
   }
