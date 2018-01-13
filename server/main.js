@@ -14,7 +14,7 @@ app.use(compress());
 app.use(async ctx => {
   await send(ctx, ctx.path, {
     index: 'index.html',
-    root: path.resolve(__dirname, 'dist'),
+    root: path.resolve(__dirname, '../dist'),
     setHeaders: (res, path) => {
       res.setHeader('Cache-Control',
         // index.html or or non-fingerprinted bundle (dev-version) is never cached
