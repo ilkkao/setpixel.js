@@ -8,13 +8,15 @@
     "prod": "NODE_ENV=production webpack",
     "lint": "eslint demos/**/*.js engine/**/*.js lib/**/*.js *.js"
   },
-  "dependencies": {},
+  "dependencies": {
+    "html-webpack-plugin": "https://github.com/Graham42/html-webpack-plugin#feat/webpack-4",
+    "webpack-cli": "^2.0.2"
+  },
   "devDependencies": {
     "eslint": "^4.12.1",
-    "html-webpack-plugin": "^2.30.1",
     "koa": "^2.4.1",
     "koa-compress": "^2.0.0",
     "koa-send": "^4.1.1",
-    "webpack": "^3.10.0"
+    "webpack": "^4.0.0-alpha.4"
   }
 }
