@@ -145,15 +145,15 @@ export function listDemos() {
 export function startDemo(name) {
   clearCanvas();
 
+  CPULoadAverage = 0;
+  tick = 0;
+  previousDrawStartTs = 0;
+
   const demo = demos[name];
   demo.start();
   currentDraw = demo.draw;
 
   authorElem.innerText = demo.meta.author;
-
-  CPULoadAverage = 0;
-  tick = 0;
-  previousDrawStartTs = 0;
 }
 
 function toggleInfoBar() {
