@@ -7,7 +7,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 console.log(`Production mode: ${isProduction}`); // eslint-disable-line no-console
 
 module.exports = {
-  mode: 'production',
+  mode: isProduction ? 'production' : 'development',
   entry: 'main',
   output: {
     path: path.resolve(__dirname, 'dist'),

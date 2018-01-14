@@ -1,4 +1,4 @@
-import { imageDataArray, SCREEN_WIDTH, SCREEN_HEIGHT } from './internal';
+import { mainImageDataArray, SCREEN_WIDTH, SCREEN_HEIGHT } from './internal';
 
 //
 // rand()
@@ -17,9 +17,9 @@ function setPixel(x, y, red, green, blue) {
 
   const index = (Math.floor(y) * SCREEN_WIDTH + Math.floor(x)) * 4;
 
-  imageDataArray[index] = Math.floor(red);
-  imageDataArray[index + 1] = Math.floor(green);
-  imageDataArray[index + 2] = Math.floor(blue);
+  mainImageDataArray[index] = Math.floor(red);
+  mainImageDataArray[index + 1] = Math.floor(green);
+  mainImageDataArray[index + 2] = Math.floor(blue);
 }
 
 export { rand, setPixel };
