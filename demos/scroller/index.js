@@ -21,8 +21,8 @@ const block = [
 ];
 
 const world = [];
-let xCamera = 0;
-let direction = 1;
+let xCamera;
+let direction;
 
 function drawScreen(offset) {
   const remainder = offset % BLOCK_WIDTH;
@@ -62,6 +62,9 @@ function drawTile(x, y, type, prev, above, under) {
 }
 
 function start() {
+  xCamera = 0;
+  direction = 1;
+
   for (let y = 0; y < WORLD_HEIGHT_IN_BLOCKS; y++) {
     for (let x = 0; x < WORLD_WIDTH_IN_BLOCKS * 10; x++) {
       world[y * WORLD_WIDTH_IN_BLOCKS + x] = rand(2);
