@@ -30,8 +30,6 @@ let demos;
 export function init(demoList) {
   demos = demoList;
 
-  debugger;
-
   canvas = document.createElement('canvas');
   canvas.width = SCREEN_WIDTH;
   canvas.height = SCREEN_HEIGHT;
