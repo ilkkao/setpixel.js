@@ -20,6 +20,9 @@ module.exports = {
     maxModules: Infinity,
     optimizationBailout: true
   },
+  optimization: {
+    minimize: false,
+  },
   plugins: [
     new webpack.optimize.ModuleConcatenationPlugin(),
     new HtmlWebpackPlugin({
