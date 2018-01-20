@@ -1,6 +1,7 @@
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from './constants';
 
 const layers = {};
+let visibleImageDatas = [];
 let currentSetPixelArray = null;
 
 export function createLayer(name, zIndex, width, height) {
@@ -10,6 +11,8 @@ export function createLayer(name, zIndex, width, height) {
   clearImageDataArray(imageDataArray);
 
   layers[name] = { imageData, imageDataArray, zIndex, visible: true };
+
+  updateVisibleImageDatas();
 
   currentSetPixelArray = imageDataArray;
 }
@@ -24,18 +27,18 @@ export function clearLayer(layer) {
 
 export function showLayer(layer) {
   layers[layer].visible = true;
+
+  updateVisibleImageDatas();
 }
 
 export function hideLayer(layer) {
   layers[layer].visible = false;
+
+  updateVisibleImageDatas();
 }
 
 export function drawLayers(ctx) {
-  Object.values(layers).sort((a, b) => a.zIndex - b.zIndex).reverse().forEach(layer => {
-    if (layer.visible) {
-      ctx.putImageData(layer.imageData, 0, 0);
-    }
-  });
+  visibleImageDatas.forEach(imageData => ctx.putImageData(imageData, 0, 0));
 }
 
 export function setPixel(x, y, red, green, blue) {
@@ -49,6 +52,13 @@ export function setPixel(x, y, red, green, blue) {
   currentSetPixelArray[index] = red;
   currentSetPixelArray[index + 1] = green;
   currentSetPixelArray[index + 2] = blue;
+}
+
+function updateVisibleImageDatas() {
+  visibleImageDatas = Object.values(layers)
+    .sort((a, b) => b.zIndex - a.zIndex)
+    .filter(layer => layer.visible)
+    .map(layer => layer.imageData);
 }
 
 function clearImageDataArray(imageDataArray) {
