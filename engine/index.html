@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8">
     <title>Setpixel.js</title>
-    <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
     <style>
       html {
         width: 100vw;
@@ -18,76 +17,8 @@
         width: 100vw;
         height: 100vh;
       }
-
-      #info-bar {
-        display: none;
-        z-index: 1;
-        color: #ccc;
-        background-color: black;
-        border: 2px solid #ccc;
-        position: absolute;
-        bottom: 0;
-        height: 40px;
-        width: 90%;
-        margin: 2% 5%;
-        align-items: center;
-        font-family: 'VT323', monospace;
-        font-size: 20px;
-      }
-
-      .item {
-        display: flex;
-        align-items: center;
-        padding-left: 5%;
-      }
-
-      .author {
-        margin: 0 10px;
-      }
-
-      .gauge {
-        width: 100px;
-        height: 12px;
-        margin: 0 10px;
-        padding: 3px;
-        background-color: black;
-        border: 2px solid #ccc;
-      }
-
-      .bar {
-        box-sizing: border-box;
-        background-color: #ccc;
-        height: 12px;
-      }
-
-      .label {
-        width: 25px;
-      }
     </style>
+  </head>
   <body>
-    <div id="info-bar">
-      <div class="item">
-        Avg CPU:
-        <div class="gauge">
-          <div class="bar" id="avg-bar"></div>
-        </div>
-        <div class="label"><span id="avg-value"></span>%</div>
-      </div>
-
-      <div class="item">
-        Current CPU:
-        <div class="gauge">
-          <div class="bar" id="current-bar"></div>
-        </div>
-        <div class="label"><span id="current-value"></span>%</div>
-      </div>
-
-      <div class="item">
-        Author:
-        <div class="author">
-          <span id="author-value"></span>
-        </div>
-      </div>
-    </div>
   </body>
 </html>
