@@ -38,7 +38,9 @@ export function hideLayer(layer) {
 }
 
 export function drawLayers(ctx) {
-  visibleImageDatas.forEach(imageData => ctx.putImageData(imageData, 0, 0));
+  for (let i = 0; i < visibleImageDatas.length; i++) {
+    ctx.putImageData(visibleImageDatas[i], 0, 0);
+  }
 }
 
 export function setPixel(x, y, red, green, blue) {
