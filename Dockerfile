@@ -15,4 +15,4 @@ RUN yarn run prod
 
 COPY server /app/server/
 
-CMD node server/server.js
+CMD node server/main.js
