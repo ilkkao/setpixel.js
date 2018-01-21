@@ -34,7 +34,9 @@ export function init(demoList) {
 
   document.getElementsByTagName('body')[0].appendChild(canvas);
 
-  window.onresize = positionCanvas;
+  window.addEventListener('resize', positionCanvas, true);
+  document.addEventListener('fullscreenchange', positionCanvas, true);
+
   positionCanvas();
 
   document.addEventListener('keydown', (e) => {
