@@ -1,5 +1,5 @@
 import { SCREEN_WIDTH } from './constants';
-import { print } from './systemFont';
+import { print } from './print';
 import * as layers from './layers';
 
 let author = '';
@@ -16,13 +16,15 @@ export function init() {
 export function update(currentLoad, avgLoad) {
   layers.clearLayer('info');
 
-  drawBar(60, 1, currentLoad / 100);
-  drawBar(300, 1, avgLoad / 100);
+  drawBar(65, 2, currentLoad / 100);
+  drawBar(269, 2, avgLoad / 100);
 
-  print(30, 2, 1, currentLoad.toString());
-  print(270, 2, 1, avgLoad.toString());
+  const currentLoadString = 'CPU: ' + (currentLoad < 10 ? ' ' : '') + currentLoad.toString() + '%';
+  const avgLoadString = 'Avg CPU: ' + (avgLoad < 10 ? ' ' : '') + avgLoad.toString() + '%';
 
-  print(450, 2, 1, `Author: ${author}`);
+  print(1, 2, currentLoadString);
+  print(177, 2, avgLoadString);
+  print(380, 2, `Author: ${author}`.toUpperCase());
 }
 
 export function setAuthor(name) {
