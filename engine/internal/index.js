@@ -21,7 +21,7 @@ export function init(demoList) {
   const canvas = document.createElement('canvas');
   canvas.width = SCREEN_WIDTH;
   canvas.height = SCREEN_HEIGHT;
-  canvas.style.position = 'absolute';
+  canvas.style.position = 'fixed';
   canvas.style.boxSizing = 'border-box';
   state.canvas = canvas;
 
@@ -90,12 +90,12 @@ function positionCanvas() {
 
   if (screenWidth / screenHeight < SCREEN_RATIO) {
     canvasHeight = screenWidth / SCREEN_RATIO;
-    state.canvas.style.top = Math.floor(`${Math.floor((screenHeight - canvasHeight) / 2)}px`);
   } else {
     canvasWidth = screenHeight * SCREEN_RATIO;
-    state.canvas.style.left = `${Math.floor((screenWidth - canvasWidth) / 2)}px`;
   }
 
+  state.canvas.style.top = `${Math.floor((screenHeight - canvasHeight) / 2)}px`;
+  state.canvas.style.left = `${Math.floor((screenWidth - canvasWidth) / 2)}px`;
   state.canvas.style.width = `${Math.floor(canvasWidth)}px`;
   state.canvas.style.height = `${Math.floor(canvasHeight)}px`;
 }
