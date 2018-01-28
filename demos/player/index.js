@@ -35,23 +35,22 @@ export function start() {
   print(165, 60, 'Setpixel.js is a back to basics demo framework!');
 
   for (let i = 0; i < demos.length; i++) {
-    print(60, 130 + 11 * i, i + ') ' + demos[i][1]);
+    print(60, 130 + 11 * i, (i + 1) + ') ' + demos[i][1]);
   }
 
-  print(30, 260, 'Press [esc] to quit the demo, [f] to enter full-screen, and [i] to see performance details');
-
+  print(40, 320, 'Press [q] to quit the demo, [f] to enter full-screen, and [i] to see performance details');
 }
 
 export function draw(keys) {
   for (let i = 0; i < keys.length; i++) {
     if (keys[i] === '1') {
-      startDemo(demos[0]);
+      startDemo(demos[0][0]);
     } else if (keys[i] === '2') {
-      startDemo(demos[1]);
+      startDemo(demos[1][0]);
     } else if (keys[i] === '3') {
-      startDemo(demos[2]);
+      startDemo(demos[2][0]);
     } else if (keys[i] === '4') {
-      startDemo(demos[3]);
+      startDemo(demos[3][0]);
     }
   }
 }
