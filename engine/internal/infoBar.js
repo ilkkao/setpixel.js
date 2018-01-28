@@ -20,11 +20,11 @@ export function update(currentLoad, avgLoad) {
   drawBar(269, 2, avgLoad / 100);
 
   const currentLoadString = 'CPU: ' + (currentLoad < 10 ? ' ' : '') + currentLoad.toString() + '%';
-  const avgLoadString = 'Avg CPU: ' + (avgLoad < 10 ? ' ' : '') + avgLoad.toString() + '%';
+  const avgLoadString = 'AVG CPU: ' + (avgLoad < 10 ? ' ' : '') + avgLoad.toString() + '%';
 
   print(1, 2, currentLoadString);
   print(177, 2, avgLoadString);
-  print(380, 2, `Author: ${author}`.toUpperCase());
+  print(380, 2, `AUTHOR: ${author}`);
 }
 
 export function setAuthor(name) {
