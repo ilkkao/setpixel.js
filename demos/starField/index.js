@@ -77,6 +77,7 @@ function draw() {
 }
 
 const meta = {
+  name: 'Star Field',
   author: 'Ilkka Oksanen <iao@iki.fi>'
 };
 

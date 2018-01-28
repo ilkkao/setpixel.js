@@ -87,6 +87,7 @@ function draw() {
 }
 
 const meta = {
+  name: 'Scroller',
   author: 'Ilkka Oksanen <iao@iki.fi>'
 };
 

@@ -32,15 +32,14 @@ export function start() {
 
   drawLogo(x, y, LOGO_ZOOM);
 
-  print(100, 100, 'Setpixel.js is a back to basic demo framework!');
-  print(100, 180, '!"#$%&\'()*+,-./0123456789:;<=>?ABCDEFGHIJKLMNOPQRSTUVWXYZ');
-
-  print(10, 40, 'full-screen [off]');
-  print(10, 90, 'WWW demos:');
+  print(165, 60, 'Setpixel.js is a back to basics demo framework!');
 
   for (let i = 0; i < demos.length; i++) {
-    print(10, 130 + 10 * i, demos[i]);
+    print(60, 130 + 11 * i, i + ') ' + demos[i][1]);
   }
+
+  print(30, 260, 'Press [esc] to quit the demo, [f] to enter full-screen, and [i] to see performance details');
+
 }
 
 export function draw(keys) {

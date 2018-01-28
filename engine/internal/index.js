@@ -66,7 +66,13 @@ export function init(demoList) {
 }
 
 export function listDemos() {
-  return Object.keys(state.demos).filter(name => name !== 'player');
+  const list = [];
+
+  Object.entries(state.demos).filter(demo => demo[0] !== 'player').forEach(demo => {
+    list.push([ demo[0], demo[1].meta.name ]);
+  });
+
+  return list;
 }
 
 export function startDemo(name) {

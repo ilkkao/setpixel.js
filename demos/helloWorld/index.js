@@ -19,6 +19,7 @@ function draw() {
 }
 
 const meta = {
+  name: 'Hello world',
   author: 'Ilkka Oksanen <iao@iki.fi>'
 };
 
