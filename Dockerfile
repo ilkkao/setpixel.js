@@ -9,6 +9,7 @@ RUN yarn
 
 
 COPY demos /app/demos/
+COPY common /app/common/
 COPY engine /app/engine/
 COPY lib /app/lib/
 RUN yarn run prod
