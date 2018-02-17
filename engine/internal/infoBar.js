@@ -5,7 +5,7 @@ import * as layers from './layers';
 let author = '';
 
 const INFO_BAR_HEIGHT = 10;
-const BAR_WIDTH = 100;
+const BAR_WIDTH = 62;
 const BAR_HEIGHT = 6;
 
 export function init() {
@@ -13,18 +13,20 @@ export function init() {
   layers.hideLayer('info');
 }
 
-export function update(currentLoad, avgLoad) {
+export function update(currentLoad, avgLoad, fps) {
   layers.clearLayer('info');
 
-  drawBar(65, 2, currentLoad / 100);
-  drawBar(269, 2, avgLoad / 100);
+  drawBar(118, 2, currentLoad / 100);
+  drawBar(281, 2, avgLoad / 100);
 
-  const currentLoadString = 'CPU: ' + (currentLoad < 10 ? ' ' : '') + currentLoad.toString() + '%';
-  const avgLoadString = 'AVG CPU: ' + (avgLoad < 10 ? ' ' : '') + avgLoad.toString() + '%';
+  const currentLoadString = (currentLoad < 10 ? ' ' : '') + currentLoad.toString() + '%';
+  const avgLoadString = (avgLoad < 10 ? ' ' : '') + avgLoad.toString() + '%';
 
-  print(1, 2, currentLoadString);
-  print(177, 2, avgLoadString);
-  print(380, 2, `AUTHOR: ${author}`);
+  print(1, 2, 'FPS:      CPU:                      AVG CPU:                      AUTHOR: ', 255, 255, 0);
+  print(31, 2, fps.toString());
+  print(90, 2, currentLoadString);
+  print(252, 2, avgLoadString);
+  print(410, 2, author);
 }
 
 export function setAuthor(name) {

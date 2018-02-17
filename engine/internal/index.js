@@ -12,7 +12,10 @@ const state = {
   tick: 0,
   infoBarVisible: false,
   keyBuffer: [],
-  demos: []
+  demos: [],
+  fps: 0,
+  fpsTs: 0,
+  fpsPreviousTick: 0
 };
 
 export function init(demoList) {
@@ -81,6 +84,9 @@ export function startDemo(name) {
   state.CPULoadAverage = 0;
   state.tick = 0;
   state.previousDrawStartTs = 0;
+  state.fps = 0;
+  state.fpsTs = performance.now();
+  state.fpsPreviousTick = 0;
 
   const demo = state.demos[name];
   demo.start();
@@ -110,6 +116,13 @@ function positionCanvas() {
 
 function drawFrame(startTs) {
   window.requestAnimationFrame(drawFrame);
+
+  if (startTs - state.fpsTs >= 1000) {
+    state.fps = state.tick - state.fpsPreviousTick;
+    state.fpsPreviousTick = state.tick;
+    state.fpsTs = startTs;
+  }
+
   state.tick++;
 
   layers.drawLayers(state.ctx);
@@ -132,7 +145,7 @@ function drawFrame(startTs) {
       const roundedCurrentLoad = Math.min(Math.round(currentLoad * 100), 100);
 
       layers.switchSetPixelLayer('info');
-      infoBar.update(roundedCurrentLoad, roundedAvgLoad);
+      infoBar.update(roundedCurrentLoad, roundedAvgLoad, state.fps || '-');
     }
   }
 
