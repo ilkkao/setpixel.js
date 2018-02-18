@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "lint": "eslint demos/**/*.js engine/**/*.js lib/**/*.js *.js",
-    "server": "node server/main.js",
+    "start": "node server/main.js",
     "build": "node server/main.js --build"
   },
   "dependencies": {

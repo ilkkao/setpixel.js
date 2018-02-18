@@ -8,7 +8,7 @@ WIP
 
 ```
 $ yarn install
-$ yarn run dev
+$ yarn start
 
 Go to: http://localhost:3000/
 ```
