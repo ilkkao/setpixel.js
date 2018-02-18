@@ -4,19 +4,17 @@
   "main": "server.js",
   "license": "MIT",
   "scripts": {
-    "dev": "webpack -w",
-    "prod": "NODE_ENV=production webpack",
-    "lint": "eslint demos/**/*.js engine/**/*.js lib/**/*.js *.js"
+    "lint": "eslint demos/**/*.js engine/**/*.js lib/**/*.js *.js",
+    "server": "node server/main.js",
+    "build": "node server/main.js --build"
   },
   "dependencies": {
-    "html-webpack-plugin": "https://github.com/Graham42/html-webpack-plugin#feat/webpack-4",
-    "webpack-cli": "^2.0.2"
+    "koa": "^2.5.0",
+    "koa-compress": "^2.0.0",
+    "memory-fs": "^0.4.1",
+    "webpack": "^4.0.0-beta.2"
   },
   "devDependencies": {
-    "eslint": "^4.12.1",
-    "koa": "^2.4.1",
-    "koa-compress": "^2.0.0",
-    "koa-send": "^4.1.1",
-    "webpack": "^4.0.0-alpha.4"
+    "eslint": "^4.12.1"
   }
 }
