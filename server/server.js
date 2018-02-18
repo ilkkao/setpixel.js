@@ -39,11 +39,9 @@ exports.start = function () {
 };
 
 function startServer() {
-  const scriptFile = files['manifest.json'] ? JSON.parse(files['manifest.json'])['main'] : 'main.js';
-  const template = fs.readFileSync(path.resolve(__dirname, '../engine/index.html'), 'utf8');
-  const app = new Koa();
+  files['index.html'] = renderTemplate();
 
-  files['index.html'] = template.replace(/{{load_bundle}}/, `<script src="/${scriptFile}"></script>`);
+  const app = new Koa();
 
   app.use(compress());
 
@@ -66,4 +64,17 @@ function startServer() {
   app.listen(PORT);
 
   console.log(`Server started: http://localhost:${PORT}/`); // eslint-disable-line no-console
+}
+
+function renderTemplate() {
+  let template = fs.readFileSync(path.resolve(__dirname, '../engine/index.html'), 'utf8');
+
+  const scriptFile = compiledMode ? JSON.parse(files['manifest.json'])['main'] : 'main.js';
+  const script = `<script src="/${scriptFile}"></script>`;
+  const liveReload = compiledMode ? '' : '<script src="http://localhost:35729/livereload.js"></script>';
+
+  template = template.replace(/{{live_reload}}/, liveReload);
+  template = template.replace(/{{load_bundle}}/, script);
+
+  return template;
 }

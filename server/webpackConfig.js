@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const LiveReloadPlugin = require('webpack-livereload-plugin');
 
 module.exports = function generate(options) {
   return {
@@ -17,7 +18,8 @@ module.exports = function generate(options) {
       optimizationBailout: true
     },
     plugins: [
-      new webpack.optimize.ModuleConcatenationPlugin()
+      new webpack.optimize.ModuleConcatenationPlugin(),
+      new LiveReloadPlugin()
     ]
   };
 };
