@@ -89,7 +89,7 @@ export function startDemo(name) {
   state.fpsPreviousTick = 0;
 
   const demo = state.demos[name];
-  demo.start();
+  demo.start && demo.start();
   state.appDrawCallback = demo.draw;
 
   infoBar.setAuthor(demo.meta.author);
