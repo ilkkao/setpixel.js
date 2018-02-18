@@ -1,9 +1,10 @@
 import { setPixel } from 'engine';
 import { startDemo, listDemos } from 'engine/internal';
 import { print } from './print';
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../lib/utils';
 
 let demos;
-let selected;
+let selected = 0;
 
 const LOGO_WIDTH = 62;
 const LOGO_HEIGHT = 7;
@@ -25,7 +26,6 @@ export const meta = {
 
 export function start() {
   demos = listDemos();
-  selected = 0;
 
   let x = 320 - LOGO_WIDTH * LOGO_ZOOM / 2;
   let y = 180 - LOGO_HEIGHT * LOGO_ZOOM / 2 - 150;
@@ -33,25 +33,38 @@ export function start() {
   drawLogo(x, y, LOGO_ZOOM);
 
   print(165, 60, 'Setpixel.js is a back to basics demo framework!');
-
-  for (let i = 0; i < demos.length; i++) {
-    print(60, 130 + 11 * i, (i + 1) + ') ' + demos[i][1]);
-  }
-
-  print(40, 320, 'Press [q] to quit the demo, [f] to enter full-screen, and [i] to see performance details');
+  print(35, 320, 'Press [esc] to quit the demo, [f] to enter full-screen, and [i] to see performance details');
 }
 
 export function draw(keys) {
-  for (let i = 0; i < keys.length; i++) {
-    if (keys[i] === '1') {
-      startDemo(demos[0][0]);
-    } else if (keys[i] === '2') {
-      startDemo(demos[1][0]);
-    } else if (keys[i] === '3') {
-      startDemo(demos[2][0]);
-    } else if (keys[i] === '4') {
-      startDemo(demos[3][0]);
+  drawRectangle(0, 80, SCREEN_WIDTH, 230, 0, 0, 0);
+
+  for (let i = 0; i < demos.length; i++) {
+    const y = 130 + 11 * i;
+
+    if (i === selected) {
+      drawRectangle(57, y - 2, 100, 11, 100, 100, 100);
     }
+
+    print(60, y, demos[i][1]);
+  }
+
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i];
+
+    if (key === 'down') {
+      selected++;
+    } else if (key === 'up') {
+      selected--;
+    } else if (key === 'enter' || key === 'space') {
+      startDemo(demos[selected][0]);
+    }
+  }
+
+  if (selected === demos.length) {
+    selected = 0;
+  } else if (selected === -1) {
+    selected = demos.length - 1;
   }
 }
 
@@ -72,6 +85,14 @@ function drawLogo(x, y, zoom) {
       if (logo[yy][xx] === 1) {
         setPixel(x + column, y + row, 0, 255, 0);
       }
+    }
+  }
+}
+
+function drawRectangle(x, y, width, height, red, green, blue) {
+  for (let row = 0; row < height; row++) {
+    for (let column = 0; column < width; column++) {
+      setPixel(x + column, y + row, red, green, blue);
     }
   }
 }
