@@ -6,6 +6,8 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../lib/utils';
 
 const state = {
   canvas: null,
+  canvasScaleX: 1,
+  canvasScaleY: 1,
   ctx: null,
   appDrawCallback: () => {},
   CPULoadAverage: 0,
@@ -15,7 +17,11 @@ const state = {
   demos: [],
   fps: 0,
   fpsTs: 0,
-  fpsPreviousTick: 0
+  fpsPreviousTick: 0,
+  mouseX: null,
+  mouseY: null,
+  mouseDown: false,
+  mouseClick: false
 };
 
 export function init(demoList) {
@@ -39,6 +45,15 @@ export function init(demoList) {
 
   window.addEventListener('resize', positionCanvas, true);
   document.addEventListener('fullscreenchange', positionCanvas, true);
+
+  canvas.addEventListener('mousemove', event => {
+    state.mouseX = Math.floor((event.clientX - canvas.offsetLeft) * state.canvasScaleX);
+    state.mouseY = Math.floor((event.clientY - canvas.offsetTop) * state.canvasScaleY);
+  }, true);
+
+  canvas.addEventListener('click', () => state.mouseClick = true, false);
+  canvas.addEventListener('mousedown', () => state.mouseDown = true, false);
+  canvas.addEventListener('mouseup', () => state.mouseDown = false, false);
 
   positionCanvas();
 
@@ -112,6 +127,9 @@ function positionCanvas() {
   state.canvas.style.left = `${Math.floor((screenWidth - canvasWidth) / 2)}px`;
   state.canvas.style.width = `${Math.floor(canvasWidth)}px`;
   state.canvas.style.height = `${Math.floor(canvasHeight)}px`;
+
+  state.canvasScaleX = SCREEN_WIDTH / canvasWidth;
+  state.canvasScaleY = SCREEN_HEIGHT / canvasHeight;
 }
 
 function drawFrame(startTs) {
@@ -128,10 +146,15 @@ function drawFrame(startTs) {
   layers.drawLayers(state.ctx);
 
   layers.switchSetPixelLayer('main');
-  state.appDrawCallback(state.keyBuffer);
+
+  state.appDrawCallback(state.keyBuffer, state.mouseX, state.mouseY, state.mouseClick, state.mouseDown);
 
   if (state.keyBuffer.length !== 0) {
-    state.keyBuffer.splice(0, state.keyBuffer.length);
+    state.keyBuffer = [];
+  }
+
+  if (state.mouseClick) {
+    state.mouseClick = false;
   }
 
   const endTs = performance.now();
