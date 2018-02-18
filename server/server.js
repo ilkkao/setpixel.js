@@ -46,15 +46,10 @@ function startServer() {
   app.use(compress());
 
   app.use(async ctx => {
+    let cacheHeader = 'no-cache, no-store, must-revalidate';
     let page = ctx.path.substring(1);
 
-    page =  page === '' ? 'index.html' : page;
-
-    if (files[page]) {
-      ctx.body = files[page];
-    }
-
-    let cacheHeader = 'no-cache, no-store, must-revalidate';
+    ctx.body = files[page] || files['index.html'];
 
     if (compiledMode && page !== 'index.html') {
       cacheHeader = 'public, max-age=31536000'; // 1 year
