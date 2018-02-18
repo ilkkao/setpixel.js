@@ -54,11 +54,15 @@ function startServer() {
       ctx.body = files[page];
     }
 
+    let cacheHeader = 'no-cache, no-store, must-revalidate';
+
     if (compiledMode && page !== 'index.html') {
-      ctx.response.set('Cache-Control', 'public, max-age=31536000');
-    } else {
-      ctx.response.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+      cacheHeader = 'public, max-age=31536000'; // 1 year
+    } else if (compiledMode) {
+      cacheHeader = 'public, max-age=1200'; // 20 minutes
     }
+
+    ctx.response.set('Cache-Control', cacheHeader);
   });
 
   app.listen(PORT);

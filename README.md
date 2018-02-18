@@ -8,7 +8,7 @@ WIP
 
 ```
 $ yarn install
-$ node server/main.js
+$ yarn run dev
 
 Go to: http://localhost:3000/
 ```
