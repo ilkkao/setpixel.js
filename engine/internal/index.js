@@ -1,3 +1,4 @@
+import Navigo from 'navigo';
 import keycode from './keycode';
 import { SCREEN_RATIO } from './constants';
 import * as infoBar from './infoBar';
@@ -23,6 +24,8 @@ const state = {
   mouseDown: false,
   mouseClick: false
 };
+
+const router = new Navigo(window.location.origin);
 
 export function init(demoList) {
   state.demos = demoList;
@@ -63,7 +66,7 @@ export function init(demoList) {
         enterFullScreen();
         break;
       case 'esc':
-        startDemo('player');
+        router.navigate('/');
         break;
       case 'i':
         toggleInfoBar();
@@ -78,9 +81,18 @@ export function init(demoList) {
 
   layers.createLayer('main', 2, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-  startDemo('player');
-
   window.requestAnimationFrame(drawFrame);
+
+  router.on('/:name', ({ name }) => {
+    if (listDemos().find(demo => demo[0] === name)) {
+      execDemo(name);
+    } else {
+      router.navigate('/');
+    }
+  });
+  router.on(() => execDemo('player'));
+  router.notFound(() => router.navigate('/'));
+  router.resolve();
 }
 
 export function listDemos() {
@@ -94,6 +106,10 @@ export function listDemos() {
 }
 
 export function startDemo(name) {
+  router.navigate(`/${name}`);
+}
+
+function execDemo(name) {
   layers.clearLayer('main');
 
   state.CPULoadAverage = 0;
