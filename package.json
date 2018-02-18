@@ -12,6 +12,7 @@
     "koa": "^2.5.0",
     "koa-compress": "^2.0.0",
     "memory-fs": "^0.4.1",
+    "navigo": "^7.1.1",
     "webpack": "^4.0.0-beta.2",
     "webpack-livereload-plugin": "^1.0.0"
   },
