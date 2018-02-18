@@ -47,7 +47,7 @@ export function init(demoList) {
       case 'f':
         enterFullScreen();
         break;
-      case 'q':
+      case 'esc':
         startDemo('player');
         break;
       case 'i':
