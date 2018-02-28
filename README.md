@@ -9,8 +9,8 @@ WIP
 ```
 $ git clone git@github.com:ilkkao/setpixel.js.git
 $ cd setpixel.js
-$ yarn install
-$ yarn start
+$ npm install
+$ npm start
 ```
 
 Then point browser to: [http://localhost:3000](http://localhost:3000)
