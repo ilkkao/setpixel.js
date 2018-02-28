@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const webpack = require('webpack');
 const webpackConfig = require('./webpackConfig');
+const generateDemoIndex =  require('./generateDemoIndex');
 
 exports.build = function() {
   const compiler = webpack(webpackConfig({ mode: 'production' }));
@@ -22,6 +23,8 @@ exports.build = function() {
 };
 
 exports.watch = function (fs, handler) {
+  generateDemoIndex();
+
   const compiler = webpack(webpackConfig({ mode: 'development' }));
   compiler.outputFileSystem = fs;
 
