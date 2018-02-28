@@ -22,7 +22,9 @@ module.exports = function generate(options) {
     },
     plugins: [
       new webpack.optimize.ModuleConcatenationPlugin(),
-      new LiveReloadPlugin()
+      new LiveReloadPlugin({
+        quiet: true
+      })
     ]
   };
 };
