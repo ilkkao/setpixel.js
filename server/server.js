@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const chalk = require('chalk');
 const Koa = require('koa');
 const compress = require('koa-compress');
 const MemoryFS = require('memory-fs');
@@ -25,7 +26,7 @@ exports.start = function () {
     const memFs = new MemoryFS();
 
     compiler.watch(memFs, stats => {
-      console.log(`Built successfully in ${stats.endTime - stats.startTime}ms`);
+      console.log(chalk.green(`Built successfully in ${stats.endTime - stats.startTime}ms`));
 
       const dir = memFs.readdirSync(distDir);
       dir.forEach(file => files[file] = memFs.readFileSync(path.resolve(distDir, file), 'utf8'));
