@@ -13,6 +13,7 @@ COPY engine /app/engine/
 COPY lib /app/lib/
 COPY server /app/server/
 
+RUN mkdir /app/dist
 RUN yarn run build
 
 COPY server /app/server/
