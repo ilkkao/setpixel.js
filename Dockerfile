@@ -2,10 +2,10 @@ FROM node:9
 
 LABEL maintainer="Ilkka Oksanen <iao@iki.fi>"
 
-COPY ["main.js", "package.json", "yarn.lock", "/app/"]
+COPY ["main.js", "package.json", "package-lock.json", "/app/"]
 
 WORKDIR /app/
-RUN yarn install
+RUN npm install
 
 COPY demos /app/demos/
 COPY common /app/common/
