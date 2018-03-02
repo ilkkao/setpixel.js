@@ -7,6 +7,8 @@ const webpackConfig = require('./webpackConfig');
 const generateDemoIndex =  require('./generateDemoIndex');
 
 exports.build = function() {
+  generateDemoIndex();
+
   const compiler = webpack(webpackConfig({ mode: 'production' }));
 
   compiler.run((err, stats) => {
