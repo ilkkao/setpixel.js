@@ -1,10 +1,12 @@
 import { setPixel } from 'engine';
 import { startDemo, listDemos } from 'engine/internal';
 import { print } from './print';
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../lib/utils';
+import { SCREEN_WIDTH } from '../../lib/utils';
 
 let demos;
 let selected = 0;
+let prevMouseX;
+let prevMouseY;
 
 const LOGO_WIDTH = 62;
 const LOGO_HEIGHT = 7;
@@ -26,6 +28,8 @@ export const meta = {
 
 export function start() {
   demos = listDemos();
+  prevMouseX = null;
+  prevMouseY = null;
 
   let x = 320 - LOGO_WIDTH * LOGO_ZOOM / 2;
   let y = 180 - LOGO_HEIGHT * LOGO_ZOOM / 2 - 150;
@@ -36,8 +40,30 @@ export function start() {
   print(35, 320, 'Press [esc] to quit the demo, [f] to enter full-screen, and [i] to see performance details');
 }
 
-export function draw(keys) {
+export function draw(keys, mouseX, mouseY, mouseDown, mouseClick) {
   drawRectangle(0, 80, SCREEN_WIDTH, 230, 0, 0, 0);
+
+  let ym = Math.floor((mouseY - 130) / 11);
+
+  if (ym < 0) {
+    ym = 0;
+  }
+
+  if (ym >= demos.length) {
+    ym = demos.length - 1;
+  }
+
+  if ((prevMouseX !== null && prevMouseX !== mouseX) || (prevMouseY !== null && prevMouseY !== mouseY)) {
+    selected = ym;
+  }
+
+  prevMouseX = mouseX;
+  prevMouseY = mouseY;
+
+  if (mouseClick) {
+    startDemo(demos[selected][0]);
+    return;
+  }
 
   for (let i = 0; i < demos.length; i++) {
     const y = 130 + 11 * i;
@@ -58,6 +84,7 @@ export function draw(keys) {
       selected--;
     } else if (key === 'enter' || key === 'space') {
       startDemo(demos[selected][0]);
+      return;
     }
   }
 
