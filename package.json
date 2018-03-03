@@ -4,7 +4,8 @@
   "main": "server.js",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint demos/**/*.js engine/**/*.js lib/**/*.js *.js .eslintrc.js",
+    "lint": "eslint demos/**/*.js engine/**/*.js lib/**/*.js *.js",
+    "lint-server": "eslint server/**/*.js",
     "start": "node server/main.js",
     "build": "node server/main.js --build"
   },
@@ -15,7 +16,8 @@
     "memory-fs": "^0.4.1",
     "navigo": "^7.1.1",
     "webpack": "^4.0.1",
-    "webpack-livereload-plugin": "^1.0.0"
+    "webpack-livereload-plugin": "^1.0.0",
+    "yargs": "^11.0.0"
   },
   "devDependencies": {
     "eslint": "^4.12.1",
