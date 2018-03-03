@@ -4,7 +4,7 @@
   "main": "server.js",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint demos/**/*.js engine/**/*.js lib/**/*.js *.js",
+    "lint": "eslint demos/**/*.js engine/**/*.js lib/**/*.js *.js .eslintrc.js",
     "start": "node server/main.js",
     "build": "node server/main.js --build"
   },
@@ -14,10 +14,15 @@
     "koa-compress": "^2.0.0",
     "memory-fs": "^0.4.1",
     "navigo": "^7.1.1",
-    "webpack": "^4.0.0-beta.2",
+    "webpack": "^4.0.1",
     "webpack-livereload-plugin": "^1.0.0"
   },
   "devDependencies": {
-    "eslint": "^4.12.1"
+    "eslint": "^4.12.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-prettier": "^2.6.0",
+    "prettier": "^1.11.1"
   }
 }
