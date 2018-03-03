@@ -14,30 +14,25 @@ const compiledMode = fs.existsSync(distDir);
 const files = {};
 let firstRound = true;
 
-exports.start = function () {
-  if (compiledMode) {
-    console.log('Detected /dist directory. Serving built version.');
+function renderTemplate() {
+  let template = fs.readFileSync(
+    path.resolve(__dirname, '../engine/index.html'),
+    'utf8'
+  );
 
-    const dir = fs.readdirSync(distDir);
-    dir.forEach(file => files[file] = fs.readFileSync(path.resolve(distDir, file), 'utf8'));
+  const scriptFile = compiledMode
+    ? JSON.parse(files['manifest.json']).main
+    : 'main.js';
+  const script = `<script src="/${scriptFile}"></script>`;
+  const liveReload = compiledMode
+    ? ''
+    : '<script src="http://localhost:35729/livereload.js"></script>';
 
-    startServer();
-  } else {
-    const memFs = new MemoryFS();
+  template = template.replace(/{{live_reload}}/, liveReload);
+  template = template.replace(/{{load_bundle}}/, script);
 
-    compiler.watch(memFs, stats => {
-      console.log(chalk.green(`Built successfully in ${stats.endTime - stats.startTime}ms`));
-
-      const dir = memFs.readdirSync(distDir);
-      dir.forEach(file => files[file] = memFs.readFileSync(path.resolve(distDir, file), 'utf8'));
-
-      if (firstRound) {
-        startServer();
-        firstRound = false;
-      }
-    });
-  }
-};
+  return template;
+}
 
 function startServer() {
   files['index.html'] = renderTemplate();
@@ -68,15 +63,36 @@ function startServer() {
   console.log(`Server started: http://localhost:${PORT}/`); // eslint-disable-line no-console
 }
 
-function renderTemplate() {
-  let template = fs.readFileSync(path.resolve(__dirname, '../engine/index.html'), 'utf8');
+exports.start = function start() {
+  if (compiledMode) {
+    console.log('Detected /dist directory. Serving built version.'); // eslint-disable-line no-console
 
-  const scriptFile = compiledMode ? JSON.parse(files['manifest.json'])['main'] : 'main.js';
-  const script = `<script src="/${scriptFile}"></script>`;
-  const liveReload = compiledMode ? '' : '<script src="http://localhost:35729/livereload.js"></script>';
+    const dir = fs.readdirSync(distDir);
+    dir.forEach(file => {
+      files[file] = fs.readFileSync(path.resolve(distDir, file), 'utf8');
+    });
 
-  template = template.replace(/{{live_reload}}/, liveReload);
-  template = template.replace(/{{load_bundle}}/, script);
+    startServer();
+  } else {
+    const memFs = new MemoryFS();
 
-  return template;
-}
+    compiler.watch(memFs, stats => {
+      // eslint-disable-next-line no-console
+      console.log(
+        chalk.green(
+          `Built successfully in ${stats.endTime - stats.startTime}ms`
+        )
+      );
+
+      const dir = memFs.readdirSync(distDir);
+      dir.forEach(file => {
+        files[file] = memFs.readFileSync(path.resolve(distDir, file), 'utf8');
+      });
+
+      if (firstRound) {
+        startServer();
+        firstRound = false;
+      }
+    });
+  }
+};

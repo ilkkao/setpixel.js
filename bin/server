@@ -1,18 +1,3 @@
 #!/usr/bin/env node
 
-const compiler = require('../server/compiler');
-const server = require('../server/server');
-const yargs = require('yargs');
-
-const argv = yargs
-  .boolean('no-random')
-  .describe('no-random', 'Seed random number generator with value 42')
-  .boolean('build')
-  .describe('build', 'Build production bundle')
-  .usage('Usage: $0 [options]').argv;
-
-if (argv.build) {
-  compiler.build();
-} else {
-  server.start();
-}
+require('../server/main').init();

@@ -1,31 +1,22 @@
 module.exports = {
-    "env": {
-        "browser": true,
-        "es6": true,
-        "node": true
-    },
-    "extends": "eslint:recommended",
-    "parserOptions": {
-        "sourceType": "module",
-        "ecmaVersion": 2017
-    },
-    "rules": {
-        "indent": [
-            "error",
-            2,
-            { "SwitchCase": 1 }
-        ],
-        "linebreak-style": [
-            "error",
-            "unix"
-        ],
-        "quotes": [
-            "error",
-            "single"
-        ],
-        "semi": [
-            "error",
-            "always"
-        ]
-    }
+  extends: [
+    'airbnb-base',
+    'prettier'
+  ],
+  parserOptions: {
+    sourceType: 'module',
+    ecmaVersion: 2018
+  },
+  rules: {
+    'prettier/prettier': [
+      'error', {
+        singleQuote: true
+      }
+    ],
+    'no-bitwise': 'off',
+    'no-plusplus': 'off'
+  },
+  plugins: [
+    'prettier'
+  ]
 };

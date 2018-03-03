@@ -1,5 +1,7 @@
+'use strict';
+
 const fs = require('fs');
-const path = require('path')
+const path = require('path');
 
 const demoDir = path.join(__dirname, '../demos');
 
@@ -8,7 +10,8 @@ function isDirectory(source) {
 }
 
 module.exports = function generate() {
-  const demos = fs.readdirSync(demoDir)
+  const demos = fs
+    .readdirSync(demoDir)
     .map(name => path.join(demoDir, name))
     .filter(isDirectory)
     .map(dir => path.basename(dir));
