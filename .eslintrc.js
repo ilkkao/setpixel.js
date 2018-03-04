@@ -7,6 +7,9 @@ module.exports = {
     sourceType: 'module',
     ecmaVersion: 2018
   },
+  env: {
+      browser: true
+  },
   rules: {
     'prettier/prettier': [
       'error', {
