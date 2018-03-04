@@ -1,5 +1,5 @@
 import { SCREEN_WIDTH } from './constants';
-import { print } from './print';
+import print from './print';
 import * as layers from './layers';
 
 let author = '';
@@ -8,33 +8,16 @@ const INFO_BAR_HEIGHT = 10;
 const BAR_WIDTH = 62;
 const BAR_HEIGHT = 6;
 
-export function init() {
-  layers.createLayer('info', 1, SCREEN_WIDTH, INFO_BAR_HEIGHT);
-  layers.hideLayer('info');
-}
-
-export function update(currentLoad, avgLoad, fps) {
-  layers.clearLayer('info');
-
-  drawBar(118, 2, currentLoad / 100);
-  drawBar(281, 2, avgLoad / 100);
-
-  const currentLoadString = (currentLoad < 10 ? ' ' : '') + currentLoad.toString() + '%';
-  const avgLoadString = (avgLoad < 10 ? ' ' : '') + avgLoad.toString() + '%';
-
-  print(1, 2, 'FPS:      CPU:                      AVG CPU:                      AUTHOR: ', 255, 255, 0);
-  print(31, 2, fps.toString());
-  print(90, 2, currentLoadString);
-  print(252, 2, avgLoadString);
-  print(410, 2, author);
-}
-
 export function setAuthor(name) {
   author = name;
 }
 
 export function setVisibility(show) {
-  show ? layers.showLayer('info') : layers.hideLayer('info');
+  if (show) {
+    layers.showLayer('info');
+  } else {
+    layers.hideLayer('info');
+  }
 }
 
 function drawBar(x, y, value) {
@@ -55,4 +38,26 @@ function drawBar(x, y, value) {
       layers.setPixel(x + i + 2, y + ii, 255, 255, 255, true);
     }
   }
+}
+
+export function init() {
+  layers.createLayer('info', 1, SCREEN_WIDTH, INFO_BAR_HEIGHT);
+  layers.hideLayer('info');
+}
+
+export function update(currentLoad, avgLoad, fps) {
+  layers.clearLayer('info');
+
+  drawBar(118, 2, currentLoad / 100);
+  drawBar(281, 2, avgLoad / 100);
+
+  const currentLoadString = `${(currentLoad < 10 ? ' ' : '') +
+    currentLoad.toString()}%`;
+  const avgLoadString = `${(avgLoad < 10 ? ' ' : '') + avgLoad.toString()}%`;
+
+  print(1, 2, 'FPS:      CPU:                      AVG CPU:                      AUTHOR: ', 255, 255, 0); // eslint-disable-line prettier/prettier
+  print(31, 2, fps.toString());
+  print(90, 2, currentLoadString);
+  print(252, 2, avgLoadString);
+  print(410, 2, author);
 }

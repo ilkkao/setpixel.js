@@ -4,6 +4,21 @@ const layers = {};
 let visibleImageDatas = [];
 let currentSetPixelArray = null;
 
+function clearImageDataArray(imageDataArray) {
+  imageDataArray.fill(0);
+
+  for (let i = 0; i < imageDataArray.length; i += 4) {
+    imageDataArray[i + 3] = 255; // eslint-disable-line no-param-reassign
+  }
+}
+
+function updateVisibleImageDatas() {
+  visibleImageDatas = Object.values(layers)
+    .sort((a, b) => b.zIndex - a.zIndex)
+    .filter(layer => layer.visible)
+    .map(layer => layer.imageData);
+}
+
 export function createLayer(name, zIndex, width, height) {
   const imageData = new ImageData(width, height);
   const imageDataArray = imageData.data;
@@ -54,19 +69,4 @@ export function setPixel(x, y, red, green, blue) {
   currentSetPixelArray[index] = red;
   currentSetPixelArray[index + 1] = green;
   currentSetPixelArray[index + 2] = blue;
-}
-
-function updateVisibleImageDatas() {
-  visibleImageDatas = Object.values(layers)
-    .sort((a, b) => b.zIndex - a.zIndex)
-    .filter(layer => layer.visible)
-    .map(layer => layer.imageData);
-}
-
-function clearImageDataArray(imageDataArray) {
-  imageDataArray.fill(0);
-
-  for (let i = 0; i < imageDataArray.length; i += 4) {
-    imageDataArray[i + 3] = 255;
-  }
 }

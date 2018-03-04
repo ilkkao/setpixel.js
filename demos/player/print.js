@@ -1,4 +1,4 @@
-import { font } from 'common/defaultFont';
+import font from 'common/defaultFont';
 import { setPixel } from 'engine';
 
 export function print(x, y, text) {
@@ -9,7 +9,7 @@ export function print(x, y, text) {
 
     for (let column = 0; column < data.length; column++) {
       for (let row = 0; row < 8; row++) {
-        if ((data[column] & (1 << 7 - row)) !== 0) {
+        if ((data[column] & (1 << (7 - row))) !== 0) {
           setPixel(x + column + offset, y + row, 255, 255, 255);
         }
       }
