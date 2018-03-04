@@ -1,4 +1,4 @@
-FROM node:9
+FROM node:9-alpine
 
 LABEL maintainer="Ilkka Oksanen <iao@iki.fi>"
 
@@ -17,4 +17,4 @@ COPY bin /app/bin/
 RUN mkdir /app/dist
 RUN ./bin/server --build
 
-CMD node server/main.js
+CMD ./bin/server
