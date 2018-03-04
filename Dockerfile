@@ -12,10 +12,9 @@ COPY common /app/common/
 COPY engine /app/engine/
 COPY lib /app/lib/
 COPY server /app/server/
+COPY bin /app/bin/
 
 RUN mkdir /app/dist
-RUN yarn run build
-
-COPY server /app/server/
+RUN ./bin/server --build
 
 CMD node server/main.js
