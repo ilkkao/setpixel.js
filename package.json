@@ -3,6 +3,10 @@
   "version": "0.0.1",
   "main": "server.js",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ilkkao/setpixel.js.git"
+  },
   "scripts": {
     "lint": "eslint common/**/*.js engine/**/*.js lib/**/*.js *.js",
     "lint-server": "eslint bin/server server/**/*.js",
