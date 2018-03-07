@@ -33,8 +33,7 @@ function toggleInfoBar() {
 }
 
 function updateCPULoadAverage(load) {
-  state.CPULoadAverage =
-    (state.CPULoadAverage * (state.tick - 1) + load) / state.tick;
+  state.CPULoadAverage = (state.CPULoadAverage * (state.tick - 1) + load) / state.tick;
 }
 
 function positionCanvas() {
@@ -105,13 +104,7 @@ function drawFrame(startTs) {
 
   layers.switchSetPixelLayer('main');
 
-  state.appDrawCallback(
-    state.keyBuffer,
-    state.mouseX,
-    state.mouseY,
-    state.mouseClick,
-    state.mouseDown
-  );
+  state.appDrawCallback(state.keyBuffer, state.mouseX, state.mouseY, state.mouseClick, state.mouseDown);
 
   if (state.keyBuffer.length !== 0) {
     state.keyBuffer = [];
@@ -124,15 +117,11 @@ function drawFrame(startTs) {
   const endTs = performance.now();
 
   if (state.previousDrawStartTs !== 0) {
-    const currentLoad =
-      (endTs - startTs) / (startTs - state.previousDrawStartTs);
+    const currentLoad = (endTs - startTs) / (startTs - state.previousDrawStartTs);
     updateCPULoadAverage(currentLoad);
 
     if (state.infoBarVisible && state.tick % 30 === 0) {
-      const roundedAvgLoad = Math.min(
-        Math.round(state.CPULoadAverage * 100),
-        100
-      );
+      const roundedAvgLoad = Math.min(Math.round(state.CPULoadAverage * 100), 100);
       const roundedCurrentLoad = Math.min(Math.round(currentLoad * 100), 100);
 
       layers.switchSetPixelLayer('info');
@@ -184,12 +173,8 @@ export function init(demoList) {
   canvas.addEventListener(
     'mousemove',
     event => {
-      state.mouseX = Math.floor(
-        (event.clientX - canvas.offsetLeft) * state.canvasScaleX
-      );
-      state.mouseY = Math.floor(
-        (event.clientY - canvas.offsetTop) * state.canvasScaleY
-      );
+      state.mouseX = Math.floor((event.clientX - canvas.offsetLeft) * state.canvasScaleX);
+      state.mouseY = Math.floor((event.clientY - canvas.offsetTop) * state.canvasScaleY);
     },
     true
   );
