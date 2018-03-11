@@ -15,7 +15,7 @@ const files = {};
 let firstRound = true;
 
 function renderTemplate() {
-  let template = fs.readFileSync(path.resolve(__dirname, '../engine/index.html'), 'utf8');
+  let template = fs.readFileSync(path.resolve(__dirname, 'templates', 'index.html'), 'utf8');
 
   const scriptFile = compiledMode ? JSON.parse(files['manifest.json']).main : 'main.js';
   const script = `<script src="/${scriptFile}"></script>`;
