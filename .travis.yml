@@ -9,7 +9,8 @@ before_install:
   - docker build -t ilkkao/setpixel.js .
 
 script:
-  - echo "Done."
+  - npm run lint
+  - npm run lint-server
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
