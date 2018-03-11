@@ -6,14 +6,14 @@ const yargs = require('yargs');
 const print = require('./print');
 const packageJSON = require('../package.json');
 
-exports.init = async function init() {
-  print.info(String.raw`           _         _          _    _      `);
-  print.info(String.raw`  ___  ___| |_ _ __ (_)_  _____| |  (_)___  `);
-  print.info(String.raw` / __|/ _ \ __| '_ \| \ \/ / _ \ |  | / __| `);
-  print.info(String.raw` \__ \  __/ |_| |_) | |>  <  __/ |_ | \__ \ `);
-  print.info(String.raw` |___/\___|\__| .__/|_/_/\_\___|_(_)/ |___/  v${packageJSON.version}`);
-  print.info(String.raw`              |_|                 |__/      `);
-  print.info(String.raw`                                            `);
+async function init() {
+  print.info(String.raw`           _         _          _    _      `, 'green');
+  print.info(String.raw`  ___  ___| |_ _ __ (_)_  _____| |  (_)___  `, 'green');
+  print.info(String.raw` / __|/ _ \ __| '_ \| \ \/ / _ \ |  | / __| `, 'green');
+  print.info(String.raw` \__ \  __/ |_| |_) | |>  <  __/ |_ | \__ \ `, 'green');
+  print.info(String.raw` |___/\___|\__| .__/|_/_/\_\___|_(_)/ |___/  v${packageJSON.version}`, 'green');
+  print.info(String.raw`              |_|                 |__/      `, 'green');
+  print.info(String.raw`                                            `, 'green');
 
   const { argv } = yargs
     .boolean('random')
