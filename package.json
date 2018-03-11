@@ -18,7 +18,6 @@
     "koa": "^2.5.0",
     "koa-compress": "^2.0.0",
     "memory-fs": "^0.4.1",
-    "navigo": "^7.1.1",
     "webpack": "^4.1.1",
     "webpack-livereload-plugin": "^1.0.0",
     "yargs": "^11.1.0"
@@ -29,6 +28,7 @@
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.0",
+    "navigo": "^7.1.1",
     "prettier": "^1.11.1"
   }
 }
