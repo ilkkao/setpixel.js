@@ -1,16 +1,23 @@
 sudo: required
 
-language: javascript
+language: node_js
 
-services:
-  - docker
+node_js:
+  - "node"
+
+dist: trusty
 
 before_install:
-  - docker build -t ilkkao/setpixel.js .
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  - sudo apt-get update
+  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
 
 script:
+  - npm install
   - npm run lint
   - npm run lint-server
+  - docker build -t ilkkao/setpixel.js .
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
