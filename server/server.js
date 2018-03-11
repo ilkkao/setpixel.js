@@ -53,12 +53,12 @@ function startServer() {
 
   app.listen(PORT);
 
-  console.log(`Server started: http://localhost:${PORT}/`); // eslint-disable-line no-console
+  console.log(`Server started: http://localhost:${PORT}/`);
 }
 
 exports.start = function start(options) {
   if (compiledMode) {
-    console.log('Detected /dist directory. Serving built version.'); // eslint-disable-line no-console
+    console.log('Detected /dist directory. Serving built version.');
 
     const dir = fs.readdirSync(distDir);
     dir.forEach(file => {
@@ -70,7 +70,6 @@ exports.start = function start(options) {
     const memFs = new MemoryFS();
 
     compiler.watch(memFs, options, stats => {
-      // eslint-disable-next-line no-console
       console.log(chalk.green(`Built successfully in ${stats.endTime - stats.startTime}ms`));
 
       const dir = memFs.readdirSync(distDir);
