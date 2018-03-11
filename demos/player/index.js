@@ -61,8 +61,8 @@ export function start() {
 
   drawLogo(x, y, LOGO_ZOOM);
 
-  print(165, 60, 'Setpixel.js is a back to basics demo framework!');
-  print(35, 320, 'Press [esc] to quit the demo, [f] to enter full-screen, and [i] to see performance details');
+  print(165, 60, 'Setpixel.js is a back to basics demo framework!', 180, 180, 180);
+  print(30, 320, 'Press [q] to quit the demo, [f] to enter full-screen, and [i] to see the performance details', 180, 180, 180);
 }
 
 export function draw(keys, mouseX, mouseY, mouseClick) {
@@ -97,7 +97,7 @@ export function draw(keys, mouseX, mouseY, mouseClick) {
       drawRectangle(57, y - 2, 100, 11, 100, 100, 100);
     }
 
-    print(60, y, demos[i][1]);
+    print(60, y, demos[i][1], 255, 255, 255);
   }
 
   for (let i = 0; i < keys.length; i++) {
