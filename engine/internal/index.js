@@ -104,15 +104,13 @@ function drawFrame(startTs) {
 
   layers.switchSetPixelLayer('main');
 
-  state.appDrawCallback(state.keyBuffer, state.mouseX, state.mouseY, state.mouseClick, state.mouseDown);
+  const { mouseClick } = state;
+  state.mouseClick = false;
 
-  if (state.keyBuffer.length !== 0) {
-    state.keyBuffer = [];
-  }
+  const keys = state.keyBuffer.slice();
+  state.keyBuffer = [];
 
-  if (state.mouseClick) {
-    state.mouseClick = false;
-  }
+  state.appDrawCallback(keys, state.mouseX, state.mouseY, mouseClick, state.mouseDown);
 
   const endTs = performance.now();
 

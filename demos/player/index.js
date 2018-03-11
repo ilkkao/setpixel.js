@@ -40,7 +40,7 @@ export function start() {
   print(35, 320, 'Press [esc] to quit the demo, [f] to enter full-screen, and [i] to see performance details');
 }
 
-export function draw(keys, mouseX, mouseY, mouseDown, mouseClick) {
+export function draw(keys, mouseX, mouseY, mouseClick, mouseDown) {
   drawRectangle(0, 80, SCREEN_WIDTH, 230, 0, 0, 0);
 
   let ym = Math.floor((mouseY - 130) / 11);
