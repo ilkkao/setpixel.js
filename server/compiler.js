@@ -37,10 +37,7 @@ exports.watch = async function watch(buildFs, options, beforeHandler, afterHandl
   const compiler = webpack(webpackConfig({ mode: 'development', random: options.random }));
   compiler.outputFileSystem = buildFs;
 
-  compiler.plugin('watch-run', (compilation, callback) => {
-    beforeHandler();
-    callback();
-  });
+  compiler.hooks.watchRun.tap('InfoPlugin', beforeHandler);
 
   compiler.watch({}, (err, stats) => {
     if (stats.hasErrors()) {
