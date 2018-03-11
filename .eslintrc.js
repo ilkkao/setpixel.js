@@ -17,7 +17,9 @@ module.exports = {
       }
     ],
     'no-bitwise': 'off',
-    'no-plusplus': 'off'
+    'no-plusplus': 'off',
+    'import/no-unresolved': 'off', // TODO: fix and remove
+    'import/extensions': 'off' // TODO: fix and remove
   },
   plugins: [
     'prettier'
