@@ -15,18 +15,11 @@ const files = {};
 let firstRound = true;
 
 function renderTemplate() {
-  let template = fs.readFileSync(
-    path.resolve(__dirname, '../engine/index.html'),
-    'utf8'
-  );
+  let template = fs.readFileSync(path.resolve(__dirname, '../engine/index.html'), 'utf8');
 
-  const scriptFile = compiledMode
-    ? JSON.parse(files['manifest.json']).main
-    : 'main.js';
+  const scriptFile = compiledMode ? JSON.parse(files['manifest.json']).main : 'main.js';
   const script = `<script src="/${scriptFile}"></script>`;
-  const liveReload = compiledMode
-    ? ''
-    : '<script src="http://localhost:35729/livereload.js"></script>';
+  const liveReload = compiledMode ? '' : '<script src="http://localhost:35729/livereload.js"></script>';
 
   template = template.replace(/{{live_reload}}/, liveReload);
   template = template.replace(/{{load_bundle}}/, script);
@@ -63,7 +56,7 @@ function startServer() {
   console.log(`Server started: http://localhost:${PORT}/`); // eslint-disable-line no-console
 }
 
-exports.start = function start() {
+exports.start = function start(options) {
   if (compiledMode) {
     console.log('Detected /dist directory. Serving built version.'); // eslint-disable-line no-console
 
@@ -76,13 +69,9 @@ exports.start = function start() {
   } else {
     const memFs = new MemoryFS();
 
-    compiler.watch(memFs, stats => {
+    compiler.watch(memFs, options, stats => {
       // eslint-disable-next-line no-console
-      console.log(
-        chalk.green(
-          `Built successfully in ${stats.endTime - stats.startTime}ms`
-        )
-      );
+      console.log(chalk.green(`Built successfully in ${stats.endTime - stats.startTime}ms`));
 
       const dir = memFs.readdirSync(distDir);
       dir.forEach(file => {

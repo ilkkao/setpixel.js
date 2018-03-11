@@ -6,10 +6,10 @@ const webpack = require('webpack');
 const webpackConfig = require('./webpackConfig');
 const generateDemoIndex = require('./generateDemoIndex');
 
-exports.build = function build() {
+exports.build = function build(options) {
   generateDemoIndex();
 
-  const compiler = webpack(webpackConfig({ mode: 'production' }));
+  const compiler = webpack(webpackConfig({ mode: 'production', random: options.random }));
 
   compiler.run((err, stats) => {
     const manifest = {};
@@ -18,19 +18,16 @@ exports.build = function build() {
       [manifest[chunk.names[0]]] = chunk.files;
     });
 
-    fs.writeFileSync(
-      path.resolve(__dirname, '../dist/manifest.json'),
-      JSON.stringify(manifest)
-    );
+    fs.writeFileSync(path.resolve(__dirname, '../dist/manifest.json'), JSON.stringify(manifest));
 
     console.log(stats.toString()); // eslint-disable-line no-console
   });
 };
 
-exports.watch = function watch(buildFs, handler) {
+exports.watch = function watch(buildFs, options, handler) {
   generateDemoIndex();
 
-  const compiler = webpack(webpackConfig({ mode: 'development' }));
+  const compiler = webpack(webpackConfig({ mode: 'development', random: options.random }));
   compiler.outputFileSystem = buildFs;
 
   compiler.watch({}, (err, stats) => {

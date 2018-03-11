@@ -6,15 +6,16 @@ const yargs = require('yargs');
 
 exports.init = function init() {
   const { argv } = yargs
-    .boolean('no-random')
-    .describe('no-random', 'Seed random number generator with value 42')
+    .boolean('random')
+    .describe('random', 'Seed random number generator with a random seed')
+    .default('random', true)
     .boolean('build')
     .describe('build', 'Build production bundle')
     .usage('Usage: $0 [options]');
 
   if (argv.build) {
-    compiler.build();
+    compiler.build({ random: argv.random });
   } else {
-    server.start();
+    server.start({ random: argv.random });
   }
 };

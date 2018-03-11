@@ -1,8 +1,12 @@
+import pseudoRand from './internal/pseudorandom';
+
 //
 // rand()
 //
 export function rand(max) {
-  return Math.floor(Math.random() * (max + 1));
+  const value = RANDOM ? Math.random() : pseudoRand();
+
+  return Math.floor(value * (max + 1));
 }
 
 //
