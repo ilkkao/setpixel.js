@@ -125,8 +125,7 @@ Object.keys(aliases).forEach(alias => {
 export default function(searchInput) {
   // Keyboard Events
   if (searchInput && typeof searchInput === 'object') {
-    const hasKeyCode =
-      searchInput.which || searchInput.keyCode || searchInput.charCode;
+    const hasKeyCode = searchInput.which || searchInput.keyCode || searchInput.charCode;
     if (hasKeyCode) {
       searchInput = hasKeyCode; // eslint-disable-line no-param-reassign
     }

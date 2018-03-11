@@ -51,8 +51,7 @@ export function update(currentLoad, avgLoad, fps) {
   drawBar(118, 2, currentLoad / 100);
   drawBar(281, 2, avgLoad / 100);
 
-  const currentLoadString = `${(currentLoad < 10 ? ' ' : '') +
-    currentLoad.toString()}%`;
+  const currentLoadString = `${(currentLoad < 10 ? ' ' : '') + currentLoad.toString()}%`;
   const avgLoadString = `${(avgLoad < 10 ? ' ' : '') + avgLoad.toString()}%`;
 
   print(1, 2, 'FPS:      CPU:                      AVG CPU:                      AUTHOR: ', 255, 255, 0); // eslint-disable-line prettier/prettier
