@@ -28,4 +28,6 @@ exports.init = async function init() {
   } else {
     await server.start({ random: argv.random });
   }
-};
+}
+
+init();
