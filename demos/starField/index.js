@@ -25,7 +25,7 @@ function initStar(star, initial) {
 function drawStar(x, y, size, red, green, blue) {
   setPixel(x, y, red, green, blue);
 
-  if (size == 2) {
+  if (size === 2) {
     setPixel(x + 1, y, red, green, blue);
     setPixel(x, y + 1, red, green, blue);
     setPixel(x + 1, y, red, green, blue);
@@ -33,7 +33,7 @@ function drawStar(x, y, size, red, green, blue) {
 }
 
 function start() {
-  for (var i = 0; i < NUMBER_OF_STARS; i++) {
+  for (let i = 0; i < NUMBER_OF_STARS; i++) {
     stars[i] = [];
     initStar(stars[i], true);
   }
@@ -43,8 +43,8 @@ function draw() {
   for (let i = 0; i < NUMBER_OF_STARS; i++) {
     drawStar(stars[i][6], stars[i][7], stars[i][8], 0, 0, 0);
 
-    let x = stars[i][0] / stars[i][2] + SCREEN_WIDTH / 2;
-    let y = stars[i][1] / stars[i][2] + SCREEN_HEIGHT / 2;
+    const x = stars[i][0] / stars[i][2] + SCREEN_WIDTH / 2;
+    const y = stars[i][1] / stars[i][2] + SCREEN_HEIGHT / 2;
 
     if (stars[i][2] < 0 || x > SCREEN_WIDTH || x < 0 || y > SCREEN_HEIGHT || y < 0) {
       initStar(stars[i], false);
@@ -59,7 +59,7 @@ function draw() {
         size = 2;
       }
 
-      stars[i][2] = stars[i][2] - stars[i][4] / 120;
+      stars[i][2] -= stars[i][4] / 120;
 
       let brightness = trunc(stars[i][3] / (stars[i][2] / 3));
 

@@ -1,7 +1,7 @@
 import font from 'common/defaultFont';
 import { setPixel } from 'engine';
 
-export function print(x, y, text) {
+export default function print(x, y, text) {
   let offset = 0;
 
   for (let i = 0; i < text.length; i++) {

@@ -1,6 +1,6 @@
 import { setPixel } from 'engine';
 import { startDemo, listDemos } from 'engine/internal';
-import { print } from './print';
+import print from './print';
 import { SCREEN_WIDTH } from '../../lib/utils';
 
 let demos;
@@ -22,17 +22,42 @@ const logo = [
   [1,1,1,1,1,0,1,1,1,1,1,0,0,1,1,1,0,0,1,1,1,0,0,0,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,0]
 ];
 
-export const meta = {
-  author: 'Ilkka Oksanen <iao@iki.fi>'
-};
+function drawRectangle(x, y, width, height, red, green, blue) {
+  for (let row = 0; row < height; row++) {
+    for (let column = 0; column < width; column++) {
+      setPixel(x + column, y + row, red, green, blue);
+    }
+  }
+}
+
+function drawLogo(x, y, zoom) {
+  for (let row = 0; row < LOGO_HEIGHT * zoom; row++) {
+    for (let column = 0; column < LOGO_WIDTH * zoom; column++) {
+      let yy = Math.round(row / zoom - 0.5);
+      let xx = Math.round(column / zoom - 0.5);
+
+      if (yy > 6) {
+        yy = 6;
+      }
+
+      if (xx > 63) {
+        xx = 63;
+      }
+
+      if (logo[yy][xx] === 1) {
+        setPixel(x + column, y + row, 0, 255, 0);
+      }
+    }
+  }
+}
 
 export function start() {
   demos = listDemos();
   prevMouseX = null;
   prevMouseY = null;
 
-  let x = 320 - LOGO_WIDTH * LOGO_ZOOM / 2;
-  let y = 180 - LOGO_HEIGHT * LOGO_ZOOM / 2 - 150;
+  const x = 320 - LOGO_WIDTH * LOGO_ZOOM / 2;
+  const y = 180 - LOGO_HEIGHT * LOGO_ZOOM / 2 - 150;
 
   drawLogo(x, y, LOGO_ZOOM);
 
@@ -40,7 +65,7 @@ export function start() {
   print(35, 320, 'Press [esc] to quit the demo, [f] to enter full-screen, and [i] to see performance details');
 }
 
-export function draw(keys, mouseX, mouseY, mouseClick, mouseDown) {
+export function draw(keys, mouseX, mouseY, mouseClick) {
   drawRectangle(0, 80, SCREEN_WIDTH, 230, 0, 0, 0);
 
   let ym = Math.floor((mouseY - 130) / 11);
@@ -95,31 +120,6 @@ export function draw(keys, mouseX, mouseY, mouseClick, mouseDown) {
   }
 }
 
-function drawLogo(x, y, zoom) {
-  for (let row = 0; row < LOGO_HEIGHT * zoom; row++) {
-    for (let column = 0; column < LOGO_WIDTH * zoom; column++) {
-      let yy = Math.round(row / zoom - 0.5);
-      let xx = Math.round(column / zoom - 0.5);
-
-      if (yy > 6) {
-        yy = 6;
-      }
-
-      if (xx > 63) {
-        xx = 63;
-      }
-
-      if (logo[yy][xx] === 1) {
-        setPixel(x + column, y + row, 0, 255, 0);
-      }
-    }
-  }
-}
-
-function drawRectangle(x, y, width, height, red, green, blue) {
-  for (let row = 0; row < height; row++) {
-    for (let column = 0; column < width; column++) {
-      setPixel(x + column, y + row, red, green, blue);
-    }
-  }
-}
+export const meta = {
+  author: 'Ilkka Oksanen <iao@iki.fi>'
+};

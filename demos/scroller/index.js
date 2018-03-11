@@ -24,6 +24,20 @@ const world = [];
 let xCamera;
 let direction;
 
+function drawTile(x, y, type, prev, above, under) {
+  for (let innerY = 0; innerY < BLOCK_HEIGHT; innerY++) {
+    for (let innerX = 0; innerX < BLOCK_WIDTH; innerX++) {
+      if (type === 1) {
+        setPixel(x + innerX, y + innerY, 0, block[innerY * BLOCK_WIDTH + innerX] * 255, 0);
+      } else if ((above === 1 && innerY === 0) || (prev === 1 && innerX === 0) || (under === 1 && innerX === 0 && innerY === 0)) {
+        setPixel(x + innerX, y + innerY, 0, 255, 0);
+      } else {
+        setPixel(x + innerX, y + innerY, 0, 0, 0);
+      }
+    }
+  }
+}
+
 function drawScreen(offset) {
   const remainder = offset % BLOCK_WIDTH;
   const offsetInBlocks = trunc(offset / BLOCK_WIDTH);
@@ -43,20 +57,6 @@ function drawScreen(offset) {
       drawTile(xBlock, yBlock, type, prevBlock, aboveBlock, belowBlock);
 
       prevBlock = type;
-    }
-  }
-}
-
-function drawTile(x, y, type, prev, above, under) {
-  for (let innerY = 0; innerY < BLOCK_HEIGHT; innerY++) {
-    for (let innerX = 0; innerX < BLOCK_WIDTH; innerX++) {
-      if (type === 1) {
-        setPixel(x + innerX, y + innerY, 0, block[innerY * BLOCK_WIDTH + innerX] * 255, 0);
-      } else if ((above === 1 && innerY === 0) || (prev === 1 && innerX === 0) || (under === 1 && innerX === 0 && innerY === 0)) {
-        setPixel(x + innerX, y + innerY, 0, 255, 0);
-      } else {
-        setPixel(x + innerX, y + innerY, 0, 0, 0);
-      }
     }
   }
 }
