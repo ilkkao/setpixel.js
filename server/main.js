@@ -1,10 +1,20 @@
 'use strict';
 
-const compiler = require('../server/compiler');
-const server = require('../server/server');
+const compiler = require('./compiler');
+const server = require('./server');
 const yargs = require('yargs');
+const print = require('./print');
+const packageJSON = require('../package.json');
 
-exports.init = function init() {
+exports.init = async function init() {
+  print.info(String.raw`           _         _          _    _      `);
+  print.info(String.raw`  ___  ___| |_ _ __ (_)_  _____| |  (_)___  `);
+  print.info(String.raw` / __|/ _ \ __| '_ \| \ \/ / _ \ |  | / __| `);
+  print.info(String.raw` \__ \  __/ |_| |_) | |>  <  __/ |_ | \__ \ `);
+  print.info(String.raw` |___/\___|\__| .__/|_/_/\_\___|_(_)/ |___/  v${packageJSON.version}`);
+  print.info(String.raw`              |_|                 |__/      `);
+  print.info(String.raw`                                            `);
+
   const { argv } = yargs
     .boolean('random')
     .describe('random', 'Seed random number generator with a random seed')
@@ -14,8 +24,8 @@ exports.init = function init() {
     .usage('Usage: $0 [options]');
 
   if (argv.build) {
-    compiler.build({ random: argv.random });
+    await compiler.build({ random: argv.random });
   } else {
-    server.start({ random: argv.random });
+    await server.start({ random: argv.random });
   }
 };

@@ -5,11 +5,15 @@ const path = require('path');
 
 const demoDir = path.join(__dirname, '../demos');
 
+function wait(ms) {
+  return new Promise(r => setTimeout(r, ms));
+}
+
 function isDirectory(source) {
   return fs.lstatSync(source).isDirectory();
 }
 
-module.exports = function generate() {
+module.exports = async function generate() {
   const demos = fs
     .readdirSync(demoDir)
     .map(name => path.join(demoDir, name))
@@ -38,4 +42,6 @@ module.exports = function generate() {
   output += '};\n';
 
   fs.writeFileSync(path.join(demoDir, 'index.js'), output);
+
+  await wait(1000); // Try to avoid webpack watch run from triggering twice
 };

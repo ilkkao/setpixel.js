@@ -5,9 +5,10 @@ const fs = require('fs');
 const webpack = require('webpack');
 const webpackConfig = require('./webpackConfig');
 const generateDemoIndex = require('./generateDemoIndex');
+const print = require('./print');
 
-exports.build = function build(options) {
-  generateDemoIndex();
+exports.build = async function build(options) {
+  await generateDemoIndex();
 
   const compiler = webpack(webpackConfig({ mode: 'production', random: options.random }));
 
@@ -20,31 +21,36 @@ exports.build = function build(options) {
 
     fs.writeFileSync(path.resolve(__dirname, '../dist/manifest.json'), JSON.stringify(manifest));
 
-    console.log(stats.toString());
+    print.info(stats.toString());
 
     if (!err && !stats.hasErrors()) {
-      console.log('Production build succeeded. Saved to /dist directory.');
+      print.info('Production build succeeded. Saved to /dist directory.');
     } else {
-      console.log('ERROR: Production build failed');
+      print.info('ERROR: Production build failed');
     }
   });
 };
 
-exports.watch = function watch(buildFs, options, handler) {
-  generateDemoIndex();
+exports.watch = async function watch(buildFs, options, beforeHandler, afterHandler) {
+  await generateDemoIndex();
 
   const compiler = webpack(webpackConfig({ mode: 'development', random: options.random }));
   compiler.outputFileSystem = buildFs;
 
+  compiler.plugin('watch-run', (compilation, callback) => {
+    beforeHandler();
+    callback();
+  });
+
   compiler.watch({}, (err, stats) => {
     if (stats.hasErrors()) {
-      console.log(stats.toString());
+      print.info(stats.toString());
     } else {
       if (stats.hasWarnings()) {
-        console.log(stats.toString());
+        print.info(stats.toString());
       }
 
-      handler(stats);
+      afterHandler(stats);
     }
   });
 };

@@ -2,11 +2,11 @@
 
 const fs = require('fs');
 const path = require('path');
-const chalk = require('chalk');
 const Koa = require('koa');
 const compress = require('koa-compress');
 const MemoryFS = require('memory-fs');
 const compiler = require('./compiler');
+const print = require('./print');
 
 const PORT = 3000;
 const distDir = path.resolve(__dirname, '..', 'dist');
@@ -53,12 +53,12 @@ function startServer() {
 
   app.listen(PORT);
 
-  console.log(`Server started: http://localhost:${PORT}/`);
+  print.info(`Web server now running at: http://localhost:${PORT}/`);
 }
 
 exports.start = function start(options) {
   if (compiledMode) {
-    console.log('Detected /dist directory. Serving built version.');
+    print.info('Detected /dist directory. Serving built version.');
 
     const dir = fs.readdirSync(distDir);
     dir.forEach(file => {
@@ -69,18 +69,25 @@ exports.start = function start(options) {
   } else {
     const memFs = new MemoryFS();
 
-    compiler.watch(memFs, options, stats => {
-      console.log(chalk.green(`Built successfully in ${stats.endTime - stats.startTime}ms`));
+    compiler.watch(
+      memFs,
+      options,
+      () => {
+        print.info('Building the front-end app...');
+      },
+      stats => {
+        print.info(`Built the frontend-app successfully in ${stats.endTime - stats.startTime}ms`);
 
-      const dir = memFs.readdirSync(distDir);
-      dir.forEach(file => {
-        files[file] = memFs.readFileSync(path.resolve(distDir, file), 'utf8');
-      });
+        const dir = memFs.readdirSync(distDir);
+        dir.forEach(file => {
+          files[file] = memFs.readFileSync(path.resolve(distDir, file), 'utf8');
+        });
 
-      if (firstRound) {
-        startServer();
-        firstRound = false;
+        if (firstRound) {
+          startServer();
+          firstRound = false;
+        }
       }
-    });
+    );
   }
 };
