@@ -3,14 +3,14 @@
 const path = require('path');
 const fs = require('fs');
 const webpack = require('webpack');
-const webpackConfig = require('./webpackConfig');
+const webpackClientConfig = require('./webpackClientConfig');
 const generateDemoIndex = require('./generateDemoIndex');
 const print = require('./print');
 
 exports.build = async function build(options) {
   await generateDemoIndex();
 
-  const compiler = webpack(webpackConfig({ mode: 'production', random: options.random }));
+  const compiler = webpack(webpackClientConfig({ mode: 'production', random: options.random }));
 
   compiler.run((err, stats) => {
     const manifest = {};
@@ -34,7 +34,7 @@ exports.build = async function build(options) {
 exports.watch = async function watch(buildFs, options, beforeHandler, afterHandler) {
   await generateDemoIndex();
 
-  const compiler = webpack(webpackConfig({ mode: 'development', random: options.random }));
+  const compiler = webpack(webpackClientConfig({ mode: 'development', random: options.random }));
   compiler.outputFileSystem = buildFs;
 
   compiler.hooks.watchRun.tap('InfoPlugin', beforeHandler);
