@@ -1,23 +1,37 @@
-import { setPixel } from 'engine';
+import { setPixel, rand, SCREEN_WIDTH, SCREEN_HEIGHT } from 'engine';
 
-let currentColor = 0;
-
+/**
+ * Initialization function. Called by the framework once before the first draw() call.
+ */
 function start() {
-}
-
-function draw() {
-  for (let i = 0; i < 360; i++) {
-    setPixel(i + 130, i, currentColor, 255, currentColor);
-    setPixel(i + 130, 360 - i, 255, currentColor, currentColor);
-  }
-
-  currentColor++;
-
-  if (currentColor === 255) {
-    currentColor = 0;
+  // Make the screen grey
+  for (let x = 0; x < SCREEN_WIDTH; x++) {
+    for (let y = 0; y < SCREEN_WIDTH; y++) {
+      setPixel(x, y, 60, 60, 60);
+    }
   }
 }
 
+/**
+ * Game loop function. Called by the framework 30 or 60 times per second when the demo is running.
+ * @param {number} ts - Current relative time.
+ * @param {string[]} keys - Array of keys pressed after the previous draw() call.
+ * @param {number} mouseX - Current mouse pointer X coordinate.
+ * @param {number} mouseY - Current mouse pointer Y coordinate.
+ * @param {boolean} mouseClick - Mouse click has happened after the previous draw() call.
+ * @param {boolean} mouseDown - Right mouse button is currently down.
+ */
+function draw(ts, keys, mouseX, mouseY, mouseClick, mouseDown) {
+  // Draw random color pixel to random coordinate
+  setPixel(rand(SCREEN_WIDTH - 1), rand(SCREEN_HEIGHT - 1), rand(255), rand(255), rand(255));
+}
+
+/**
+ * Required metadata for the player
+ * @namespace
+ * @property {string} name - User visible name of the demo.
+ * @property {string} author - Name and email of the demo author.
+ */
 const meta = {
   name: 'Hello world',
   author: 'Ilkka Oksanen <iao@iki.fi>'
