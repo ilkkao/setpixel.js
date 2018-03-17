@@ -4,16 +4,22 @@
   <img src="https://user-images.githubusercontent.com/474587/37556825-9f2c5908-29fb-11e8-98cb-56be5f4670f7.png">
 </p>
 
+<p align="center">
+  Hosted version runnning at <a href="https://www.setpixel.org">https://www.setpixel.org</a>
+</p>
+
 ## Installation
 
-```
-$ git clone git@github.com:ilkkao/setpixel.js.git
-$ cd setpixel.js
+1. Fork this repo (you want to contribute)
+2. Clone the forked repo
+3. Run
+
+```bash
 $ npm install
 $ npm start
 ```
 
-Then check the demos at: [http://localhost:3000](http://localhost:3000)
+4. Check the demos at: [http://localhost:3000](http://localhost:3000)
 
 ## Your first demo
 
@@ -64,4 +70,4 @@ export { start, draw, meta };
 ```
 
 3. Restart the server if it's running
-4. Start to modify the `index.js` file, the server has live reload enabled
+4. Modify the `index.js` file, the server has live reload enabled
