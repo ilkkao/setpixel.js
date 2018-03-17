@@ -4,8 +4,6 @@ const fs = require('fs');
 const path = require('path');
 const Koa = require('koa');
 const compress = require('koa-compress');
-const MemoryFS = require('memory-fs');
-const compiler = require('./compiler');
 const print = require('./print');
 
 const PORT = 3000;
@@ -67,6 +65,9 @@ exports.start = function start(options) {
 
     startServer();
   } else {
+    const compiler = require('./compiler');
+    const MemoryFS = require('memory-fs');
+
     const memFs = new MemoryFS();
 
     compiler.watch(

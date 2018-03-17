@@ -1,6 +1,5 @@
 'use strict';
 
-const compiler = require('./compiler');
 const server = require('./server');
 const yargs = require('yargs');
 const print = require('./print');
@@ -24,6 +23,7 @@ async function init() {
     .usage('Usage: $0 [options]');
 
   if (argv.build) {
+    const compiler = require('./compiler');
     await compiler.build({ random: argv.random });
   } else {
     await server.start({ random: argv.random });
