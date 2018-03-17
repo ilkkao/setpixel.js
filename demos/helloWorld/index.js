@@ -21,7 +21,7 @@ function start() {
  * @param {boolean} mouseClick - Mouse click has happened after the previous draw() call.
  * @param {boolean} mouseDown - Right mouse button is currently down.
  */
-function draw(ts, keys, mouseX, mouseY, mouseClick, mouseDown) {
+function draw(ts, keys, mouseX, mouseY, mouseClick, mouseDown) { // eslint-disable-line no-unused-vars
   // Draw random color pixel to random coordinate
   setPixel(rand(SCREEN_WIDTH - 1), rand(SCREEN_HEIGHT - 1), rand(255), rand(255), rand(255));
 }

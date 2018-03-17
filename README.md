@@ -15,15 +15,17 @@ $ npm start
 
 Then point browser to: [http://localhost:3000](http://localhost:3000)
 
-## Demo skeleton
+## Start hacking
 
-Hello world demo:
+1. Create a new sub directory under `/demos/` directory
+2. In that directory add `index.js` file
+3. Copy the following code to the `index.js` file
 
 ```javascript
 import { setPixel, rand, SCREEN_WIDTH, SCREEN_HEIGHT } from 'engine';
 
 /**
- * Initialization function. Called by the framework once before the first draw() call.
+ * Initialization function. Called once by the framework before the first draw() call.
  */
 function start() {
   // Make the screen grey
@@ -61,3 +63,6 @@ const meta = {
 
 export { start, draw, meta };
 ```
+
+4. Restart the server if it's running
+5. Start modifying the file, the server has live reload enabled
