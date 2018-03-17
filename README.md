@@ -1,10 +1,10 @@
 [![Build Status](https://travis-ci.org/ilkkao/setpixel.js.svg?branch=master)](https://travis-ci.org/ilkkao/setpixel.js)
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/474587/37556474-0918e66a-29f7-11e8-9277-e784108e163f.png">
+  <img src="https://user-images.githubusercontent.com/474587/37556825-9f2c5908-29fb-11e8-98cb-56be5f4670f7.png">
 </p>
 
-## Getting started
+## Installation
 
 ```
 $ git clone git@github.com:ilkkao/setpixel.js.git
@@ -13,13 +13,12 @@ $ npm install
 $ npm start
 ```
 
-Then point browser to: [http://localhost:3000](http://localhost:3000)
+Then check the demos at: [http://localhost:3000](http://localhost:3000)
 
-## Start hacking
+## Your first demo
 
 1. Create a new sub directory under `/demos/` directory
-2. In that directory add `index.js` file
-3. Copy the following code to the `index.js` file
+2. In the new sub directory, add `index.js` file with the following contents
 
 ```javascript
 import { setPixel, rand, SCREEN_WIDTH, SCREEN_HEIGHT } from 'engine';
@@ -64,5 +63,5 @@ const meta = {
 export { start, draw, meta };
 ```
 
-4. Restart the server if it's running
-5. Start modifying the file, the server has live reload enabled
+3. Restart the server if it's running
+4. Start to modify the `index.js` file, the server has live reload enabled
