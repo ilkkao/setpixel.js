@@ -3,7 +3,9 @@ import keycode from './keycode';
 import { SCREEN_RATIO } from './constants';
 import * as infoBar from './infoBar';
 import * as layers from './layers';
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../lib/utils';
+
+const SCREEN_WIDTH = 640;
+const SCREEN_HEIGHT = 360;
 
 const state = {
   canvas: null,

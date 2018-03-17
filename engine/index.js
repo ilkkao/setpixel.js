@@ -13,3 +13,13 @@ export function rand(max) {
 // setpixel()
 //
 export { setPixel } from './internal/layers';
+
+//
+// SCREEN_WIDTH
+//
+export const SCREEN_WIDTH = 640;
+
+//
+// SCREEN_HEIGHT
+//
+export const SCREEN_HEIGHT = 360;

@@ -1,5 +1,5 @@
-import { rand, setPixel } from 'engine';
-import { SCREEN_HEIGHT, SCREEN_WIDTH, trunc } from 'lib/utils';
+import { rand, setPixel, SCREEN_HEIGHT, SCREEN_WIDTH } from 'engine';
+import { trunc } from 'lib/utils';
 
 const stars = [];
 const NUMBER_OF_STARS = 6600;

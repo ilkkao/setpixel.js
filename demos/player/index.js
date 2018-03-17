@@ -1,7 +1,6 @@
-import { setPixel } from 'engine';
+import { setPixel, SCREEN_WIDTH } from 'engine';
 import { startDemo, listDemos } from 'engine/internal';
 import print from './print';
-import { SCREEN_WIDTH } from '../../lib/utils';
 
 let demos;
 let selected = 0;
