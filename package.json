@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "main": "server.js",
   "license": "MIT",
+  "description": "A demo platform",
   "repository": {
     "type": "git",
     "url": "git@github.com:ilkkao/setpixel.js.git"
