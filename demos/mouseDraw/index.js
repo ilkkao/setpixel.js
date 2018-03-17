@@ -10,7 +10,7 @@ function start() {
   mouseHasBeenUp = false;
 }
 
-function draw(keys, mouseX, mouseY, mouseClick, mouseDown) {
+function draw(ts, keys, mouseX, mouseY, mouseClick, mouseDown) {
   if ((mouseX !== previousY || mouseY !== previousY) && mouseDown && mouseHasBeenUp) {
     line(previousX, previousY, mouseX, mouseY, 255, 255, 255);
   }

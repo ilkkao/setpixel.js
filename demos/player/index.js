@@ -65,7 +65,7 @@ export function start() {
   print(30, 320, 'Press [q] to quit the demo, [f] to enter full-screen, and [i] to see the performance details', 180, 180, 180);
 }
 
-export function draw(keys, mouseX, mouseY, mouseClick) {
+export function draw(ts, keys, mouseX, mouseY, mouseClick) {
   drawRectangle(0, 80, SCREEN_WIDTH, 230, 0, 0, 0);
 
   let ym = Math.floor((mouseY - 130) / 11);

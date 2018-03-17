@@ -24,7 +24,7 @@ const world = [];
 let xCamera;
 let direction;
 
-function drawTile(x, y, type, prev, above, under) {
+function drawTile(ts, x, y, type, prev, above, under) {
   for (let innerY = 0; innerY < BLOCK_HEIGHT; innerY++) {
     for (let innerX = 0; innerX < BLOCK_WIDTH; innerX++) {
       if (type === 1) {

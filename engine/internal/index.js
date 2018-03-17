@@ -13,6 +13,7 @@ const state = {
   appDrawCallback: () => {},
   CPULoadAverage: 0,
   tick: 0,
+  demoStartTs: 0,
   infoBarVisible: false,
   keyBuffer: [],
   demos: [],
@@ -73,6 +74,7 @@ function execDemo(name) {
 
   state.CPULoadAverage = 0;
   state.tick = 0;
+  state.demoStartTs = performance.now();
   state.previousDrawStartTs = 0;
   state.fps = 0;
   state.fpsTs = performance.now();
@@ -89,20 +91,20 @@ function execDemo(name) {
   infoBar.setAuthor(demo.meta.author);
 }
 
-function drawFrame(startTs) {
+function drawFrame(frameStartTs) {
+  const ts = performance.now() - state.demoStartTs;
+
   window.requestAnimationFrame(drawFrame);
 
-  if (startTs - state.fpsTs >= 1000) {
+  if (frameStartTs - state.fpsTs >= 1000) {
     state.fps = state.tick - state.fpsPreviousTick;
     state.fpsPreviousTick = state.tick;
-    state.fpsTs = startTs;
+    state.fpsTs = frameStartTs;
   }
 
   state.tick++;
 
   layers.drawLayers(state.ctx);
-
-  layers.switchSetPixelLayer('main');
 
   const { mouseClick } = state;
   state.mouseClick = false;
@@ -110,12 +112,13 @@ function drawFrame(startTs) {
   const keys = state.keyBuffer.slice();
   state.keyBuffer = [];
 
-  state.appDrawCallback(keys, state.mouseX, state.mouseY, mouseClick, state.mouseDown);
+  layers.switchSetPixelLayer('main');
+  state.appDrawCallback(ts, keys, state.mouseX, state.mouseY, mouseClick, state.mouseDown);
 
   const endTs = performance.now();
 
   if (state.previousDrawStartTs !== 0) {
-    const currentLoad = (endTs - startTs) / (startTs - state.previousDrawStartTs);
+    const currentLoad = (endTs - frameStartTs) / (frameStartTs - state.previousDrawStartTs);
     updateCPULoadAverage(currentLoad);
 
     if (state.infoBarVisible && state.tick % 30 === 0) {
@@ -127,7 +130,7 @@ function drawFrame(startTs) {
     }
   }
 
-  state.previousDrawStartTs = startTs;
+  state.previousDrawStartTs = frameStartTs;
 }
 
 export function listDemos() {
