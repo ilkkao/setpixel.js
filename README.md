@@ -1,6 +1,8 @@
-# Setpixel.js
-
 [![Build Status](https://travis-ci.org/ilkkao/setpixel.js.svg?branch=master)](https://travis-ci.org/ilkkao/setpixel.js)
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/474587/37556474-0918e66a-29f7-11e8-9277-e784108e163f.png">
+</p>
 
 ## Getting started
 
