@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  Hosted version runnning at <a href="https://www.setpixel.org">https://www.setpixel.org</a>
+  <a href="https://www.setpixel.org">https://www.setpixel.org</a><br>(current master)
 </p>
 
 ## Installation
