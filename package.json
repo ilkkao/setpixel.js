@@ -21,7 +21,7 @@
     "yargs": "^11.1.0"
   },
   "devDependencies": {
-    "eslint": "^4.19.0",
+    "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-import": "^2.9.0",
@@ -29,7 +29,7 @@
     "memory-fs": "^0.4.1",
     "navigo": "^7.1.1",
     "prettier": "^1.11.1",
-    "webpack": "^4.1.1",
-    "webpack-livereload-plugin": "^2.0.0"
+    "webpack": "^4.2.0",
+    "webpack-livereload-plugin": "^2.1.1"
   }
 }
